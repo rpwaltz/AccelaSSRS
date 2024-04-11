@@ -607,7 +607,7 @@ PIVOT
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>JOBCODE DESCTIPTION</Value>
+                      <Value>JOBCODE DESCRIPTION</Value>
                       <Style>
                         <FontWeight>Bold</FontWeight>
                       </Style>
