@@ -3,9 +3,9 @@
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="Accela">
-      <DataSourceReference>/NONPROD1/KNOXVILLE/KNOXVILLE</DataSourceReference>
+      <DataSourceReference>Accela</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
-      <rd:DataSourceID>1555baaa-b826-4da6-97c8-cf37479426bd</rd:DataSourceID>
+      <rd:DataSourceID>40c9793c-ff98-4df8-a182-02e2dfccb3de</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>

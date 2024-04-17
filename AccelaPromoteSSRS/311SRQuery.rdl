@@ -3,7 +3,7 @@
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="Accela">
-      <DataSourceReference>/NONPROD1/KNOXVILLE/KNOXVILLE</DataSourceReference>
+      <DataSourceReference>Accela</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>ed0aafbc-d1d0-41da-8560-1312320b76ea</rd:DataSourceID>
     </DataSource>
@@ -13,667 +13,468 @@
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@detaildatebegin">
+          <QueryParameter Name="@DetailDateBegin">
             <Value>=Parameters!DetailDateBegin.Value</Value>
           </QueryParameter>
-          <QueryParameter Name="@detaildateend">
+          <QueryParameter Name="@DetailDateEnd">
             <Value>=Parameters!DetailDateEnd.Value</Value>
           </QueryParameter>
-          <QueryParameter Name="@onlyforgroup">
+          <QueryParameter Name="@OnlyForGroup">
             <Value>=Parameters!OnlyForGroup.Value</Value>
           </QueryParameter>
-          <QueryParameter Name="@publicservicegroup">
+          <QueryParameter Name="@PublicServiceGroup">
             <Value>=Parameters!PublicServiceGroup.Value</Value>
           </QueryParameter>
-          <QueryParameter Name="@streetname">
-            <Value>=Parameters!StreetName.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@housenumber">
-            <Value>=Parameters!HouseNumber.Value</Value>
-          </QueryParameter>
-          <QueryParameter Name="@requesttype">
+          <QueryParameter Name="@RequestType">
             <Value>=Parameters!RequestType.Value</Value>
           </QueryParameter>
-          <QueryParameter Name="@status">
+          <QueryParameter Name="@Status">
             <Value>=Parameters!Status.Value</Value>
           </QueryParameter>
-          <QueryParameter Name="@createdby">
+          <QueryParameter Name="@CreatedBy">
             <Value>=Parameters!CreatedBy.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@StreetName">
+            <Value>=Parameters!StreetName.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@HouseNumber">
+            <Value>=Parameters!HouseNumber.Value</Value>
           </QueryParameter>
           <QueryParameter Name="@sortby">
             <Value>=Parameters!sortby.Value</Value>
           </QueryParameter>
         </QueryParameters>
-        <CommandText>/*
-declare 
-	@detaildatebegin date = '11/30/2022', 
-	@detaildateend date = '12/30/2022',
-	@onlyforgroup varchar(100) = 'ALL',
-	@PublicServiceGroup varchar(100) = 'ALL',
-	@StreetName varchar(100) = '',
-	@HouseNumber varchar(100) = '',
-	@Status varchar(100) = 'ALL',
-	@RequestType varchar(100) = 'ALL',
-	@CreatedBy varchar(100) = 'KNOLES',
-	@sortby varchar(100) = 'STREET_NAME';
---*/
-WITH service_requests_vw AS (
-SELECT a.SERV_PROV_CODE,
-    a.B1_PER_ID1,
-    a.B1_PER_ID2,
-    a.B1_PER_ID3,
-    a.B1_ALT_ID SERVICE_REQUEST_NUM,
-	CONVERT(VARCHAR(MAX),ISNULL(b.B1_ADDRESS_NBR,'0')) STREET_NUMBER,
-    ISNULL(b.B1_STR_DIR,' ') STREET_NAME_DIR,
-    ISNULL(b.B1_STR_DIR,' ') STREET_NAME_PREFIX,
-    ISNULL(b.B1_STR_NAME,' ') STREET_NAME,
-    ISNULL(b.B1_STR_SUFFIX,' ') STREET_NAME_SUFFIX,
-    --TRIM(TO_CHAR(NVL(b.b1_hse_nbr_start,'0'))
-    --|| ' '
-    --|| TRIM (NVL(b.B1_STR_DIR,' ')
-    --|| ' '
-    --|| NVL(b.B1_STR_NAME,' '))
-    --|| ' '
-    --|| NVL(b.B1_STR_SUFFIX,' ')) ADDRESS,
-	LTRIM(RTRIM(ISNULL(CONVERT(NVARCHAR(MAX), b.b1_hse_nbr_start), '0')
-        + ' ' + 
-        ISNULL(RTRIM(LTRIM(CONVERT(NVARCHAR(MAX), b.B1_STR_DIR))), ' ')
-        + ' '
-        + ISNULL(RTRIM(LTRIM(CONVERT(NVARCHAR(MAX), b.B1_STR_NAME))), ' ')
-        + ' ' + 
-        ISNULL(RTRIM(LTRIM(CONVERT(NVARCHAR(MAX), b.B1_STR_SUFFIX))), ' ')
-    )) ADDRESS,
-    ISNULL(servicearea.B1_CHECKLIST_COMMENT,'Unknown') WDA_1_VALUE,
-    ISNULL(councildistrict.B1_CHECKLIST_COMMENT,'Unknown') WDA_2_VALUE,
-    ' ' WDA_3_VALUE,
-    a.REC_DATE CREATED_DATE,
-    a.B1_CREATED_BY,
-    A.REC_FUL_NAM,
-    d.B1_ASGN_DEPT GROUP_NAME,
-    e.R3_SUBGROUP_DESC SR_GROUP_DESC,
-    ISNULL(a.B1_APPL_STATUS,'OPEN') STATUS_CODE,
-    a.B1_APPL_STATUS,
- --   DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 
-	--'Canceled', 'C','O') STATUS_ABBR,
-	CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-        WHEN 'OPEN' THEN 'O'
+        <CommandText>--DECLARE @DetailDateBegin nvarchar(100)
+--SET @DetailDateBegin = '02/01/2024';
+--DECLARE @DetailDateEnd nvarchar(100)
+--SET @DetailDateEnd = '02/29/2024';
+--DECLARE @BureauFilter nvarchar(100)
+--SET @BureauFilter = NULL;
+--DECLARE @DivisionFilter nvarchar(100)
+--SET @DivisionFilter = NULL;
+--DECLARE @GroupBy nvarchar(100)
+--SET @GroupBy = '1';
+--DECLARE @OnlyForGroup nvarchar(100)
+--SET @OnlyForGroup = NULL;
+--DECLARE @sortby nvarchar(100)
+--SET @sortby = 'STREET_NAME';
+--DECLARE  @PublicServiceGroup nvarchar(100)
+--set  @PublicServiceGroup = null;
+--DECLARE @Status nvarchar(100)
+--SET @Status = NULL;
+--DECLARE @RequestType nvarchar(100)
+--SET @RequestType = NULL;
+--DECLARE @CreatedBy nvarchar(100)
+--SET @CreatedBy = NULL;
+--DECLARE @StreetName nvarchar(100)
+--SET @StreetName = NULL;
+--DECLARE @HouseNumber nvarchar(100)
+--SET @HouseNumber = NULL;
+
+
+select
+s.SERV_PROV_CODE,
+s.B1_PER_ID1,
+s.B1_PER_ID2,
+s.B1_PER_ID3,
+s.SERVICE_REQUEST_NUM,
+s.STREET_NAME,
+S.ADDRESS,
+s.TYPE_NAME,
+s.CREATED_DATE,
+s.STATUS_DATE,
+s.STATUS_CODE,
+s.STATUS_ABBR,
+s.DETAILS,
+s.CURRENT_OVERDUE,
+s.DURATIONS_DAYS,
+s.OVERDURATION,
+s.DAYSOPEN
+from (
+select 
+bp.b1_alt_id SERVICE_REQUEST_NUM,
+CASE ISNULL(bp.b1_appl_status,'OPEN')
+		WHEN 'OPEN' THEN 'O'
         WHEN 'CLOSED' THEN 'C'
         WHEN 'Completed' THEN 'C'
         WHEN 'Duplicate - Closed' THEN 'C'
         WHEN 'Canceled' THEN 'C'
-        ELSE 'O' 
-    END AS STATUS_ABBR,
-    a.B1_APPL_STATUS_DATE STATUS_DATE,
-    a.B1_PER_TYPE TYPE_NAME,
-    ' ' DETAILS,
-    ISNULL(C.R1_DUE_DAY,1) DURATIONS_DAYS,
-    a.B1_PER_TYPE COK_DESCRIPTION,
-    ' ' COK_DESCRIPTION3,
-    --CASE
-    --  WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') = 'O'
-    --  AND ROUND((sysdate-a.REC_DATE+.5),1) &gt; NVL(C.R1_DUE_DAY,1)
-    --  THEN 1
-    --  ELSE 0
-    --END AS current_overdue,
-	CASE 
-	WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-        WHEN 'OPEN' THEN 'O'
+        ELSE 'O' END as STATUS_ABBR,
+SUBSTRING(ISNULL(bp.b1_appl_status,'OPEN'), 1, 1) as STATUS_ABBR2,
+ISNULL(bp.b1_appl_status,'OPEN') as STATUS_CODE,
+bp.serv_prov_code,
+bp.B1_PER_ID1,
+bp.B1_PER_ID2,
+bp.B1_PER_ID3,
+bp.B1_PER_TYPE as TYPE_NAME,
+bu.r3_bureau_des,
+div.r3_division_des,
+g3.r3_subgroup_desc as SR_GROUP_DESC,
+bp.b1_per_type as COK_DESCRIPTION,
+bp.b1_file_dd as CREATED_DATE,
+bp.b1_appl_status_date as STATUS_DATE,
+
+' ' as DETAILS,
+
+UPPER((select TOP (1) B1_STR_NAME
+from (
+SELECT ad3.SERV_PROV_CODE
+      ,ad3.B1_PER_ID1
+      ,ad3.B1_PER_ID2
+      ,ad3.B1_PER_ID3
+      ,ad3.B1_STR_NAME as  B1_STR_NAME
+      ,STRING_AGG(ad3.B1_PRIMARY_ADDR_FLG, ',') AS PRIM_ORDER
+  FROM B3ADDRES  ad3 
+  where ad3.SERV_PROV_CODE                 = bp.SERV_PROV_CODE
+  AND ad3.B1_PER_ID1                  = bp.B1_PER_ID1
+  AND ad3.B1_PER_ID2                  = bp.B1_PER_ID2
+  AND ad3.B1_PER_ID3                  = bp.B1_PER_ID3
+  GROUP BY ad3.SERV_PROV_CODE
+      ,ad3.B1_PER_ID1
+      ,ad3.B1_PER_ID2
+      ,ad3.B1_PER_ID3
+      ,ad3.B1_STR_NAME ) AS TOP_ADDRESS
+	ORDER BY PRIM_ORDER, B1_STR_NAME)) as STREET_NAME,
+
+(select TOP (1) FULL_ADDRESS
+FROM (
+select b1_hse_nbr_start,
+B1_STR_NAME,
+UPPER(TRIM(CAST(ISNULL(b1_hse_nbr_start,0) as varchar)
+    + ' '
+    + TRIM (ISNULL(B1_STR_DIR,' ')
+    + ' '
+    + ISNULL(B1_STR_NAME,' '))
+    + ' '
+    + ISNULL(B1_STR_SUFFIX,' '))) AS FULL_ADDRESS,
+	STRING_AGG(bad3.B1_PRIMARY_ADDR_FLG, ',') AS PRIM_ORDER
+from B3ADDRES bad3
+where   bad3.SERV_PROV_CODE   = bp.SERV_PROV_CODE
+  AND bad3.B1_PER_ID1  = bp.B1_PER_ID1
+  AND bad3.B1_PER_ID2  = bp.B1_PER_ID2
+  AND bad3.B1_PER_ID3 = bp.B1_PER_ID3
+    GROUP BY 
+	    b1_hse_nbr_start,
+        B1_STR_NAME,
+		UPPER(TRIM(CAST(ISNULL(b1_hse_nbr_start,0) as varchar)
+			+ ' '
+			+ TRIM (ISNULL(B1_STR_DIR,' ')
+			+ ' '
+			+ ISNULL(B1_STR_NAME,' '))
+			+ ' '
+			+ ISNULL(B1_STR_SUFFIX,' ')))) TOP_ADDRESS order by PRIM_ORDER, b1_str_name, b1_hse_nbr_start)  as ADDRESS, 
+
+ISNULL(apt.r1_due_day,1) AS DURATIONS_DAYS,
+
+CASE 
+	WHEN (CASE ISNULL(bp.b1_appl_status,'OPEN')
+		WHEN 'OPEN' THEN 'O'
         WHEN 'CLOSED' THEN 'C'
         WHEN 'Completed' THEN 'C'
         WHEN 'Duplicate - Closed' THEN 'C'
         WHEN 'Canceled' THEN 'C'
-		ELSE 'O' END ) = 'O'
-	AND ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), GETDATE())+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
+        ELSE 'O' END) = 'O' 
+		AND (datediff(HOUR,  DATEADD(HOUR, 12, bp.b1_file_dd), GETDATE())/24)  &gt; ISNULL(apt.r1_due_day,1) 
+	THEN 1
+	ELSE 0 
+	END as current_overdue_calc,
+
+CASE
+	WHEN bp.b1_appl_status_date &lt; bp.b1_file_dd then NULL
+	WHEN (CASE ISNULL(bp.b1_appl_status,'OPEN')
+		WHEN 'OPEN' THEN 'O'
+		WHEN 'CLOSED' THEN 'C'
+		WHEN 'Completed' THEN 'C'
+		WHEN 'Duplicate - Closed' THEN 'C'
+		WHEN 'Canceled' THEN 'C'
+		ELSE 'O' END) = 'O' 
+	AND (datediff(HOUR,  DATEADD(HOUR, 12, bp.b1_file_dd), GETDATE())/24)  &gt; ISNULL(apt.r1_due_day,1)
 	THEN 1
 	ELSE 0
-	END AS current_overdue,
-
-    --CASE
-    --  WHEN ROUND((sysdate-a.REC_DATE+.5),1) &gt; NVL(C.R1_DUE_DAY,1)
-    --  THEN 1
-    --  ELSE 0
-    --END AS overdue,
-	CASE
-      WHEN ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), GETDATE())+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-      THEN 1
-      ELSE 0
-    END AS overdue,
-
-    CASE
-      --WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') = 'C'
-      --THEN (to_date(TO_CHAR(a.B1_APPL_STATUS_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')-to_date(TO_CHAR(a.REC_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')+.5)
-	  WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
+    END AS current_overdue,   
+	
+CASE
+	WHEN bp.b1_appl_status_date &lt; bp.b1_file_dd then NULL
+	WHEN (CASE ISNULL(bp.b1_appl_status,'OPEN')
 		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) = 'C' 
-	 THEN (DATEDIFF(DAY, CONVERT(DATE, a.REC_DATE, 101), CONVERT(DATE, a.B1_APPL_STATUS_DATE, 101)) + 0.5)
-      ELSE 0
+		WHEN 'CLOSED' THEN 'C'
+		WHEN 'Completed' THEN 'C'
+		WHEN 'Duplicate - Closed' THEN 'C'
+		WHEN 'Canceled' THEN 'C'
+		ELSE 'O' END) = 'C' 
+	THEN DATEDIFF(DAY, DATEADD(HOUR, 12, bp.b1_file_dd), (CONVERT(DATE, bp.b1_appl_status_date,101)))
+	ELSE 0
     END AS response,
-    CASE
-      --WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') = 'O'
-      --AND ROUND((sysdate-a.REC_DATE+.5),1)&gt; NVL(C.R1_DUE_DAY,1)
-	  WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) = 'O'
-		AND ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), GETDATE())+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-      THEN 1
-      --WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') &lt;&gt; 'O'
-      --AND ROUND((a.B1_APPL_STATUS_DATE-a.REC_DATE+.5),1) &gt; NVL(C.R1_DUE_DAY,1)
-	  	  WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) &lt;&gt; 'O'
-		AND ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), a.B1_APPL_STATUS_DATE)+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-      THEN 1
-      ELSE 0
-    END AS overduration,
-    CASE
-   --   WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 
-	  --'Canceled', 'C','O') = 'O'
-   --   THEN (to_date(TO_CHAR(sysdate, 'mm/dd/yyyy'),'mm/dd/yyyy')-to_date(TO_CHAR(a.REC_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')+.5)
-   --   WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 
-	  --'Canceled', 'C','O') &lt;&gt; 'O'
-   --   THEN (to_date(TO_CHAR(a.B1_APPL_STATUS_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')-to_date(TO_CHAR(a.REC_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')+.5)
-   WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) = 'O'
-   THEN DATEDIFF(DAY, CONVERT(DATE, a.REC_DATE), GETDATE()) + 0.5
-	WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) &lt;&gt; 'O'
-		THEN (DATEDIFF(DAY, CONVERT(DATE, a.REC_DATE), CONVERT(DATE, a.B1_APPL_STATUS_DATE)) + 0.5)
-    END AS daysopen,
-    ' ' GEO_AREA_CODE,
-    ' ' GEO_AREA_VALUE,
-    SUBSTRING(ISNULL(servicearea.B1_CHECKLIST_COMMENT,'Unknown'),1,1) part_geo_area_value,
-    NULL updated_date,
-    f.r3_bureau_des,
-    g.r3_division_des,
-    e.r3_dept_key
-  FROM dbo.B1PERMIT a LEFT OUTER JOIN dbo.B3ADDRES b ON
-  b.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND b.B1_PER_ID1 = a.B1_PER_ID1
-  AND b.B1_PER_ID2 = a.B1_PER_ID2
-  AND b.B1_PER_ID3 = a.B1_PER_ID3
-  AND a.b1_alt_id NOT IN
-    (SELECT b1_alt_id FROM b1permit WHERE a.b1_appl_class = 'INCOMPLETE' and SERV_PROV_CODE = 'KNOXVILLE'
-    )
-  LEFT OUTER JOIN dbo.R3APPTYP c ON
-  c.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND c.R1_PER_GROUP = a.B1_PER_GROUP
-  AND c.R1_PER_TYPE = a.B1_PER_TYPE
-  AND c.R1_PER_SUB_TYPE = a.B1_PER_SUB_TYPE
-  AND c.R1_PER_CATEGORY = a.B1_PER_CATEGORY
-  LEFT OUTER JOIN dbo.BPERMIT_DETAIL d ON
-  d.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND d.B1_PER_ID1 = a.B1_PER_ID1
-  AND d.B1_PER_ID2 = a.B1_PER_ID2
-  AND d.B1_PER_ID3 = a.B1_PER_ID3
-  LEFT OUTER JOIN dbo.g3dpttyp e ON
-  e.SERV_PROV_CODE = d.SERV_PROV_CODE
-  AND e.r3_dept_key = d.b1_asgn_dept
-  LEFT OUTER JOIN dbo.r3bureau f ON
-  f.R3_AGENCY_CODE = e.R3_AGENCY_CODE
-  AND f.r3_bureau_code = e.r3_bureau_code
-  AND f.serv_prov_code = e.serv_prov_code
-  LEFT OUTER JOIN dbo.r3divisn g ON
-  g.SERV_PROV_CODE = E.SERV_PROV_CODE
-  AND G.R3_DIVISION_CODE = E.R3_DIVISION_CODE
-  AND G.R3_AGENCY_CODE = 'KNOX'
-  LEFT OUTER JOIN dbo.BCHCKBOX servicearea ON
-  servicearea.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND servicearea.B1_PER_ID1 = a.B1_PER_ID1
-  AND servicearea.B1_PER_ID2 = a.B1_PER_ID2
-  AND servicearea.B1_PER_ID3 = a.B1_PER_ID3
-  AND servicearea.B1_CHECKBOX_DESC = 'Service Area'
-  LEFT OUTER JOIN dbo.BCHCKBOX councildistrict ON
-  councildistrict.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND councildistrict.B1_PER_ID1 = a.B1_PER_ID1
-  AND councildistrict.B1_PER_ID2 = a.B1_PER_ID2
-  AND councildistrict.B1_PER_ID3 = a.B1_PER_ID3
-  AND councildistrict.B1_CHECKBOX_DESC = 'Council District'
-  WHERE a.B1_PER_GROUP = 'ServiceRequest' AND a.SERV_PROV_CODE = 'KNOXVILLE' 
-)
 
-select a.service_request_num, a.street_number, a.street_name_prefix, a.street_name, a.street_name_suffix, a.address, 
-  a.wda_1_value, a.wda_2_value, a.wda_3_value, a.created_date, a.group_name, a.sr_group_desc, a.status_code, a.status_abbr, 
-  a.status_date, a.type_name, a.details, a.durations_days, a.cok_description, a.cok_description3, a.response, a.current_overdue, 
-  a.overduration, a.daysopen, a.geo_area_code, a.geo_area_value, a.part_geo_area_value, a.updated_date, a.b1_appl_status, 
-  a.r3_bureau_des department, a.rec_ful_nam, a.b1_created_by, b.child_type_group
-from service_requests_vw a
-left outer join v_related_record b on b.parent_record_id = a.service_request_num and a.SERV_PROV_CODE = b.AGENCY_ID
-and a.SERV_PROV_CODE = 'KNOXVILLE'
-where convert(date,a.created_date)  --between '01/01/2020' and '01/01/2021'
- between @detaildatebegin and @detaildateend
---  --a.created_date between to_date(:detaildatebegin, 'mm/dd/yyyy') and to_date(:detaildateend, 'mm/dd/yyyy')+1
-  and
+CASE
+	WHEN bp.b1_appl_status_date &lt; bp.b1_file_dd then NULL
+	WHEN (CASE ISNULL(bp.b1_appl_status,'OPEN')
+		WHEN 'OPEN' THEN 'O'
+		WHEN 'CLOSED' THEN 'C'
+		WHEN 'Completed' THEN 'C'
+		WHEN 'Duplicate - Closed' THEN 'C'
+		WHEN 'Canceled' THEN 'C'
+		ELSE 'O' END) = 'O'
+	AND DATEDIFF(HOUR, DATEADD(HOUR, 12, bp.b1_file_dd),   GETDATE())/24 &gt; ISNULL(apt.R1_DUE_DAY,1)
+	THEN 1
+	WHEN (CASE ISNULL(bp.b1_appl_status,'OPEN')
+		WHEN 'OPEN' THEN 'O'
+		WHEN 'CLOSED' THEN 'C'
+		WHEN 'Completed' THEN 'C'
+		WHEN 'Duplicate - Closed' THEN 'C'
+		WHEN 'Canceled' THEN 'C'
+		ELSE 'O' END) &lt;&gt; 'O'
+	AND (DATEDIFF(HOUR, DATEADD(HOUR, 12, bp.b1_file_dd), bp.b1_appl_status_date)/24) &gt; ISNULL(apt.R1_DUE_DAY,1)
+	THEN 1
+	ELSE 0
+	END AS overduration,
+	
+CASE
+	WHEN bp.b1_appl_status_date &lt; bp.b1_file_dd then NULL
+	WHEN (CASE ISNULL(bp.b1_appl_status,'OPEN')
+		WHEN 'OPEN' THEN 'O'
+		WHEN 'CLOSED' THEN 'C'
+		WHEN 'Completed' THEN 'C'
+		WHEN 'Duplicate - Closed' THEN 'C'
+		WHEN 'Canceled' THEN 'C'
+		ELSE 'O' END) = 'O'
+	THEN  DATEDIFF(DAY, DATEADD(HOUR, 12, bp.b1_file_dd), (CONVERT(DATE, GETDATE(),101)))
+	WHEN (CASE ISNULL(bp.b1_appl_status,'OPEN')
+		WHEN 'OPEN' THEN 'O'
+		WHEN 'CLOSED' THEN 'C'
+		WHEN 'Completed' THEN 'C'
+		WHEN 'Duplicate - Closed' THEN 'C'
+		WHEN 'Canceled' THEN 'C'
+		ELSE 'O' END) &lt;&gt; 'O'
+	THEN  DATEDIFF(DAY, DATEADD(HOUR, 12, bp.b1_file_dd), (CONVERT(DATE, bp.b1_appl_status_date,101)))
+	END AS daysopen
+	
+FROM B1PERMIT bp
+left outer join R3APPTYP apt
+on bp.SERV_PROV_CODE = apt.SERV_PROV_CODE
+and bp.B1_PER_GROUP = apt.R1_PER_GROUP 
+and bp.B1_PER_TYPE = apt.R1_PER_TYPE
+and bp.B1_PER_SUB_TYPE = apt.R1_PER_SUB_TYPE
+and bp.B1_PER_CATEGORY = apt.R1_PER_CATEGORY
+left outer join BPERMIT_DETAIL bpd 
+on bpd.SERV_PROV_CODE                 = bp.SERV_PROV_CODE
+  AND bpd.B1_PER_ID1                  = bp.B1_PER_ID1
+  AND bpd.B1_PER_ID2                  = bp.B1_PER_ID2
+  AND bpd.B1_PER_ID3                  = bp.B1_PER_ID3
+left outer join     g3dpttyp g3
+ON bpd.serv_prov_code                = g3.serv_prov_code
+  AND bpd.b1_asgn_dept = g3.r3_dept_key
+left outer join     r3bureau bu
+ON  bu.serv_prov_code                = g3.serv_prov_code
+  AND bu.R3_AGENCY_CODE                = g3.R3_AGENCY_CODE
+  AND bu.r3_bureau_code                = g3.r3_bureau_code
+left outer join     r3divisn div
+ON  div.serv_prov_code                = g3.serv_prov_code
+  AND div.R3_AGENCY_CODE                = 'KNOX'
+and div.R3_DIVISION_CODE              = g3.R3_DIVISION_CODE
+left outer join BCHCKBOX servicearea
+on servicearea.SERV_PROV_CODE       = bp.SERV_PROV_CODE
+  AND servicearea.B1_PER_ID1           = bp.B1_PER_ID1
+  AND servicearea.B1_PER_ID2           = bp.B1_PER_ID2
+  AND servicearea.B1_PER_ID3           = bp.B1_PER_ID3
+  AND servicearea.B1_CHECKBOX_DESC     = 'Service Area'
+  LEFT OUTER JOIN dbo.BCHCKBOX councildistrict ON
+  councildistrict.SERV_PROV_CODE = bp.SERV_PROV_CODE
+  AND councildistrict.B1_PER_ID1 = bp.B1_PER_ID1
+  AND councildistrict.B1_PER_ID2 = bp.B1_PER_ID2
+  AND councildistrict.B1_PER_ID3 = bp.B1_PER_ID3
+  AND councildistrict.B1_CHECKBOX_DESC = 'Council District'
+  left outer join v_related_record vrr on vrr.AGENCY_ID = bp.SERV_PROV_CODE AND vrr.parent_record_id = bp.B1_ALT_ID 
+where  
+BP.serv_prov_code = 'KNOXVILLE' 
+ AND bp.B1_PER_GROUP = 'ServiceRequest'
+ AND CONVERT(DATE, bp.b1_file_dd, 101) between
+CONVERT(DATE, @DetailDateBegin, 101) 
+   AND DATEADD(DAY, 1, CONVERT(DATE, @DetailDateEnd, 101))
+
+  AND bp.b1_appl_class not like 'INCOMPLETE'
+
+ AND
    case
-      when @onlyforgroup = '' or len(trim(@onlyforgroup)) = 0  or @onlyforgroup = 'ALL' then 1
-      when trim(upper(a.R3_BUREAU_DES)) = trim(upper(@onlyforgroup)) then 1
+      when @OnlyForGroup is null or len(trim(@OnlyForGroup)) = 0  or @OnlyForGroup = ' ALL' then 1
+      when trim(upper(bu.R3_BUREAU_DES)) = trim(upper(@OnlyForGroup)) then 1
       else 0
    end = 1
-   and
+ AND
    case
-      when @publicservicegroup is null or len(trim(@publicservicegroup)) = 0 or @publicservicegroup = 'ALL' then 1
-      when --substring(trim(upper(@publicservicegroup)), -1) 
-	  RIGHT(TRIM(@publicservicegroup),1) = wda_2_value and 
-	  charindex('GENERAL SERVICE AREA',trim(upper(@publicservicegroup))) &gt; 0 and b.child_type_group = 'AMS' then 1
-      when trim(upper(a.SR_GROUP_DESC)) = trim(upper(@publicservicegroup)) then 1
+      when @PublicServiceGroup is null or len(trim(@PublicServiceGroup)) = 0 or @PublicServiceGroup = ' ALL' then 1
+      when RIGHT(TRIM(@PublicServiceGroup),1) = ISNULL(councildistrict.B1_CHECKLIST_COMMENT,'Unknown') and 
+         charindex('GENERAL SERVICE AREA',trim(upper(@PublicServiceGroup))) &gt; 0 and 
+         vrr.child_type_group = 'AMS' 
+       then 1
+      when trim(upper(g3.R3_SUBGROUP_DESC)) = trim(upper(@PublicServiceGroup)) 
+       then 1
       else 0
    end = 1
-   and
+
+ AND
    case
-      when @streetname is null or len(trim(@streetname)) = 0 then 1
-      when trim(upper(a.STREET_NAME)) like concat('%',trim(upper(@streetname)),'%') then 1
+      when @RequestType is null or len(trim(@RequestType)) = 0  or @RequestType = ' ALL' then 1
+      when trim(upper(bp.B1_PER_TYPE)) like '%' + trim(upper(@RequestType)) + '%' then 1
       else 0
    end = 1
-   and
+ AND
    case
-      when @housenumber is null or len(trim(@housenumber)) = 0 then 1
-      --when trim(upper(a.street_number)) = trim(upper(:housenumber)) then 1
-      when trim(upper(a.address)) LIKE concat(trim(upper(@housenumber)),'%') then 1
+      when @Status is null or len(trim(@Status)) = 0 or @Status = ' ALL' then 1
+      when upper(bp.B1_APPL_STATUS) = trim(upper(@Status)) then 1
       else 0
    end = 1
-   and
+ AND
    case
-      when @requesttype is null or len(trim(@requesttype)) = 0  or @requesttype = 'ALL' then 1
-      when trim(upper(a.cok_description)) like concat('%',trim(upper(@requesttype)),'%') then 1
+      when @CreatedBy is null or len(trim(@CreatedBy)) = 0 or @CreatedBy = ' ALL' then 1
+      when trim(upper(bp.B1_CREATED_BY)) = trim(upper(@CreatedBy)) then 1
       else 0
    end = 1
-   and
+) s 
+where
    case
-      when @status is null or len(trim(@status)) = 0 or @status = 'ALL' then 1
-      when upper(a.B1_APPL_STATUS) = trim(upper(@status)) then 1
+      when @StreetName is null or len(trim(@StreetName)) = 0 then 1
+      when trim(upper(s.STREET_NAME)) like '%' + trim(upper(@StreetName)) + '%' then 1
       else 0
    end = 1
-   and
+ AND
    case
-      when @createdby is null or len(trim(@createdby)) = 0 or @createdby = 'ALL' then 1
-      when trim(upper(a.B1_CREATED_BY)) = trim(upper(@createdby)) then 1
+      when @HouseNumber is null or len(trim(@HouseNumber)) = 0 then 1
+      when trim(upper(s.address)) LIKE trim(upper(@HouseNumber)) + '%' then 1
       else 0
    end = 1
+group by 
+s.SERV_PROV_CODE,
+s.B1_PER_ID1,
+s.B1_PER_ID2,
+s.B1_PER_ID3,
+s.SERVICE_REQUEST_NUM,
+s.STREET_NAME,
+S.ADDRESS,
+s.TYPE_NAME,
+s.CREATED_DATE,
+s.STATUS_DATE,
+s.STATUS_CODE,
+s.STATUS_ABBR,
+s.DETAILS,
+s.CURRENT_OVERDUE,
+s.DURATIONS_DAYS,
+s.OVERDURATION,
+s.DAYSOPEN
 ORDER BY trim (case @sortby
-  when 'TYPE_NAME'           then type_name
+  when 'TYPE_NAME'           then s.type_name
   when 'CREATED_DATE' then convert(varchar,created_date,120)
-  --to_char(created_date, 'yyyy/mm/dd HH24:mi:ss')
-  when 'STREET_NAME'         then street_name
+  when 'STREET_NAME'         then s.street_name
   else type_name
   end),
 trim (case  @sortby
-  when 'TYPE_NAME'           then convert(varchar,created_date,120)
-  --to_char(created_date, 'yyyy/mm/dd HH24:mi:ss')
-	when 'CREATED_DATE' then type_name
-	when 'STREET_NAME'         then address
+  when 'TYPE_NAME'           then  convert(varchar,created_date,120)
+  when 'CREATED_DATE' then s.type_name
+  when 'STREET_NAME'         then s.address
   else convert(varchar,created_date,120)
-  --to_char(created_date, 'yyyy/mm/dd HH24:mi:ss')
-           end),
+  end),
 trim (case @sortby
   when 'TYPE_NAME'           then null
   when 'CREATED_DATE' then null
-  when 'STREET_NAME'         then convert(varchar,created_date,120)
-  --to_char(created_date, 'yyyy/mm/dd HH24:mi:ss')
+  when 'STREET_NAME'         then  convert(varchar,created_date,120)
   else null
 end)</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
+        <Field Name="SERV_PROV_CODE">
+          <DataField>SERV_PROV_CODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="B1_PER_ID1">
+          <DataField>B1_PER_ID1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="B1_PER_ID2">
+          <DataField>B1_PER_ID2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="B1_PER_ID3">
+          <DataField>B1_PER_ID3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="SERVICE_REQUEST_NUM">
-          <DataField>service_request_num</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="STREET_NUMBER">
-          <DataField>street_number</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="STREET_NAME_PREFIX">
-          <DataField>street_name_prefix</DataField>
+          <DataField>SERVICE_REQUEST_NUM</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="STREET_NAME">
-          <DataField>street_name</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="STREET_NAME_SUFFIX">
-          <DataField>street_name_suffix</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="WDA_1_VALUE">
-          <DataField>wda_1_value</DataField>
+          <DataField>STREET_NAME</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="ADDRESS">
-          <DataField>address</DataField>
+          <DataField>ADDRESS</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="WDA_2_VALUE">
-          <DataField>wda_2_value</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="WDA_3_VALUE">
-          <DataField>wda_3_value</DataField>
+        <Field Name="TYPE_NAME">
+          <DataField>TYPE_NAME</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="CREATED_DATE">
-          <DataField>created_date</DataField>
+          <DataField>CREATED_DATE</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="GROUP_NAME">
-          <DataField>group_name</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="SR_GROUP_DESC">
-          <DataField>sr_group_desc</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+        <Field Name="STATUS_DATE">
+          <DataField>STATUS_DATE</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
         <Field Name="STATUS_CODE">
-          <DataField>status_code</DataField>
+          <DataField>STATUS_CODE</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="STATUS_ABBR">
-          <DataField>status_abbr</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="STATUS_DATE">
-          <DataField>status_date</DataField>
-          <rd:TypeName>System.DateTime</rd:TypeName>
-        </Field>
-        <Field Name="TYPE_NAME">
-          <DataField>type_name</DataField>
+          <DataField>STATUS_ABBR</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="DETAILS">
-          <DataField>details</DataField>
+          <DataField>DETAILS</DataField>
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DURATIONS_DAYS">
-          <DataField>durations_days</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="COK_DESCRIPTION">
-          <DataField>cok_description</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="COK_DESCRIPTION3">
-          <DataField>cok_description3</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="RESPONSE">
-          <DataField>response</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="CURRENT_OVERDUE">
-          <DataField>current_overdue</DataField>
+          <DataField>CURRENT_OVERDUE</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="DURATIONS_DAYS">
+          <DataField>DURATIONS_DAYS</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="OVERDURATION">
-          <DataField>overduration</DataField>
+          <DataField>OVERDURATION</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="DAYSOPEN">
-          <DataField>daysopen</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="GEO_AREA_CODE">
-          <DataField>geo_area_code</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="GEO_AREA_VALUE">
-          <DataField>geo_area_value</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PART_GEO_AREA_VALUE">
-          <DataField>part_geo_area_value</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="UPDATED_DATE">
-          <DataField>updated_date</DataField>
+          <DataField>DAYSOPEN</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
-        <Field Name="B1_APPL_STATUS">
-          <DataField>b1_appl_status</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="DEPARTMENT">
-          <DataField>department</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="REC_FUL_NAM">
-          <DataField>rec_ful_nam</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="B1_CREATED_BY">
-          <DataField>b1_created_by</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="CHILD_TYPE_GROUP">
-          <DataField>child_type_group</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
     <DataSet Name="Departments">
       <Query>
         <DataSourceName>Accela</DataSourceName>
-        <CommandText>WITH service_requests_vw AS (
-SELECT a.SERV_PROV_CODE,
-    a.B1_PER_ID1,
-    a.B1_PER_ID2,
-    a.B1_PER_ID3,
-    a.B1_ALT_ID SERVICE_REQUEST_NUM,
-	CONVERT(VARCHAR(MAX),ISNULL(b.B1_ADDRESS_NBR,'0')) STREET_NUMBER,
-    ISNULL(b.B1_STR_DIR,' ') STREET_NAME_DIR,
-    ISNULL(b.B1_STR_DIR,' ') STREET_NAME_PREFIX,
-    ISNULL(b.B1_STR_NAME,' ') STREET_NAME,
-    ISNULL(b.B1_STR_SUFFIX,' ') STREET_NAME_SUFFIX,
-    --TRIM(TO_CHAR(NVL(b.b1_hse_nbr_start,'0'))
-    --|| ' '
-    --|| TRIM (NVL(b.B1_STR_DIR,' ')
-    --|| ' '
-    --|| NVL(b.B1_STR_NAME,' '))
-    --|| ' '
-    --|| NVL(b.B1_STR_SUFFIX,' ')) ADDRESS,
-	LTRIM(RTRIM(ISNULL(CONVERT(NVARCHAR(MAX), b.b1_hse_nbr_start), '0')
-        + ' ' + 
-        ISNULL(RTRIM(LTRIM(CONVERT(NVARCHAR(MAX), b.B1_STR_DIR))), ' ')
-        + ' '
-        + ISNULL(RTRIM(LTRIM(CONVERT(NVARCHAR(MAX), b.B1_STR_NAME))), ' ')
-        + ' ' + 
-        ISNULL(RTRIM(LTRIM(CONVERT(NVARCHAR(MAX), b.B1_STR_SUFFIX))), ' ')
-    )) ADDRESS,
-    ISNULL(servicearea.B1_CHECKLIST_COMMENT,'Unknown') WDA_1_VALUE,
-    ISNULL(councildistrict.B1_CHECKLIST_COMMENT,'Unknown') WDA_2_VALUE,
-    ' ' WDA_3_VALUE,
-    a.REC_DATE CREATED_DATE,
-    a.B1_CREATED_BY,
-    A.REC_FUL_NAM,
-    d.B1_ASGN_DEPT GROUP_NAME,
-    e.R3_SUBGROUP_DESC SR_GROUP_DESC,
-    ISNULL(a.B1_APPL_STATUS,'OPEN') STATUS_CODE,
-    a.B1_APPL_STATUS,
- --   DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 
-	--'Canceled', 'C','O') STATUS_ABBR,
-	CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-        WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' 
-    END AS STATUS_ABBR,
-    a.B1_APPL_STATUS_DATE STATUS_DATE,
-    a.B1_PER_TYPE TYPE_NAME,
-    ' ' DETAILS,
-    ISNULL(C.R1_DUE_DAY,1) DURATIONS_DAYS,
-    a.B1_PER_TYPE COK_DESCRIPTION,
-    ' ' COK_DESCRIPTION3,
-    --CASE
-    --  WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') = 'O'
-    --  AND ROUND((sysdate-a.REC_DATE+.5),1) &gt; NVL(C.R1_DUE_DAY,1)
-    --  THEN 1
-    --  ELSE 0
-    --END AS current_overdue,
-	CASE 
-	WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-        WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-		ELSE 'O' END ) = 'O'
-	AND ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), GETDATE())+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-	THEN 1
-	ELSE 0
-	END AS current_overdue,
-
-    --CASE
-    --  WHEN ROUND((sysdate-a.REC_DATE+.5),1) &gt; NVL(C.R1_DUE_DAY,1)
-    --  THEN 1
-    --  ELSE 0
-    --END AS overdue,
-	CASE
-      WHEN ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), GETDATE())+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-      THEN 1
-      ELSE 0
-    END AS overdue,
-
-    CASE
-      --WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') = 'C'
-      --THEN (to_date(TO_CHAR(a.B1_APPL_STATUS_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')-to_date(TO_CHAR(a.REC_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')+.5)
-	  WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) = 'C' 
-	 THEN (DATEDIFF(DAY, CONVERT(DATE, a.REC_DATE, 101), CONVERT(DATE, a.B1_APPL_STATUS_DATE, 101)) + 0.5)
-      ELSE 0
-    END AS response,
-    CASE
-      --WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') = 'O'
-      --AND ROUND((sysdate-a.REC_DATE+.5),1)&gt; NVL(C.R1_DUE_DAY,1)
-	  WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) = 'O'
-		AND ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), GETDATE())+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-      THEN 1
-      --WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') &lt;&gt; 'O'
-      --AND ROUND((a.B1_APPL_STATUS_DATE-a.REC_DATE+.5),1) &gt; NVL(C.R1_DUE_DAY,1)
-	  	  WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) &lt;&gt; 'O'
-		AND ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), a.B1_APPL_STATUS_DATE)+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-      THEN 1
-      ELSE 0
-    END AS overduration,
-    CASE
-   --   WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 
-	  --'Canceled', 'C','O') = 'O'
-   --   THEN (to_date(TO_CHAR(sysdate, 'mm/dd/yyyy'),'mm/dd/yyyy')-to_date(TO_CHAR(a.REC_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')+.5)
-   --   WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 
-	  --'Canceled', 'C','O') &lt;&gt; 'O'
-   --   THEN (to_date(TO_CHAR(a.B1_APPL_STATUS_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')-to_date(TO_CHAR(a.REC_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')+.5)
-   WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) = 'O'
-   THEN DATEDIFF(DAY, CONVERT(DATE, a.REC_DATE), GETDATE()) + 0.5
-	WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) &lt;&gt; 'O'
-		THEN (DATEDIFF(DAY, CONVERT(DATE, a.REC_DATE), CONVERT(DATE, a.B1_APPL_STATUS_DATE)) + 0.5)
-    END AS daysopen,
-    ' ' GEO_AREA_CODE,
-    ' ' GEO_AREA_VALUE,
-    SUBSTRING(ISNULL(servicearea.B1_CHECKLIST_COMMENT,'Unknown'),1,1) part_geo_area_value,
-    NULL updated_date,
-    f.r3_bureau_des,
-    g.r3_division_des,
-    e.r3_dept_key
-  FROM dbo.B1PERMIT a LEFT OUTER JOIN dbo.B3ADDRES b ON
-  b.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND b.B1_PER_ID1 = a.B1_PER_ID1
-  AND b.B1_PER_ID2 = a.B1_PER_ID2
-  AND b.B1_PER_ID3 = a.B1_PER_ID3
-  AND a.b1_alt_id NOT IN
-    (SELECT b1_alt_id FROM b1permit WHERE a.b1_appl_class = 'INCOMPLETE' and SERV_PROV_CODE = 'KNOXVILLE'
-    )
-  LEFT OUTER JOIN dbo.R3APPTYP c ON
-  c.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND c.R1_PER_GROUP = a.B1_PER_GROUP
-  AND c.R1_PER_TYPE = a.B1_PER_TYPE
-  AND c.R1_PER_SUB_TYPE = a.B1_PER_SUB_TYPE
-  AND c.R1_PER_CATEGORY = a.B1_PER_CATEGORY
-  LEFT OUTER JOIN dbo.BPERMIT_DETAIL d ON
-  d.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND d.B1_PER_ID1 = a.B1_PER_ID1
-  AND d.B1_PER_ID2 = a.B1_PER_ID2
-  AND d.B1_PER_ID3 = a.B1_PER_ID3
-  LEFT OUTER JOIN dbo.g3dpttyp e ON
-  e.SERV_PROV_CODE = d.SERV_PROV_CODE
-  AND e.r3_dept_key = d.b1_asgn_dept
-  LEFT OUTER JOIN dbo.r3bureau f ON
-  f.R3_AGENCY_CODE = e.R3_AGENCY_CODE
-  AND f.r3_bureau_code = e.r3_bureau_code
-  AND f.serv_prov_code = e.serv_prov_code
-  LEFT OUTER JOIN dbo.r3divisn g ON
-  g.SERV_PROV_CODE = E.SERV_PROV_CODE
-  AND G.R3_DIVISION_CODE = E.R3_DIVISION_CODE
-  AND G.R3_AGENCY_CODE = 'KNOX'
-  LEFT OUTER JOIN dbo.BCHCKBOX servicearea ON
-  servicearea.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND servicearea.B1_PER_ID1 = a.B1_PER_ID1
-  AND servicearea.B1_PER_ID2 = a.B1_PER_ID2
-  AND servicearea.B1_PER_ID3 = a.B1_PER_ID3
-  AND servicearea.B1_CHECKBOX_DESC = 'Service Area'
-  LEFT OUTER JOIN dbo.BCHCKBOX councildistrict ON
-  councildistrict.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND councildistrict.B1_PER_ID1 = a.B1_PER_ID1
-  AND councildistrict.B1_PER_ID2 = a.B1_PER_ID2
-  AND councildistrict.B1_PER_ID3 = a.B1_PER_ID3
-  AND councildistrict.B1_CHECKBOX_DESC = 'Council District'
-  WHERE a.B1_PER_GROUP = 'ServiceRequest' AND a.SERV_PROV_CODE = 'KNOXVILLE' 
-)
-
-SELECT     distinct r3_bureau_des AS Department
-FROM        service_requests_vw
-UNION
-SELECT     ' ALL' AS EXPR1
-
-ORDER BY department</CommandText>
+        <CommandText>SELECT 'All' AS Department
+		UNION
+		SELECT f.r3_bureau_des as Department
+		  FROM B1PERMIT a
+			LEFT JOIN BPERMIT_DETAIL d ON d.SERV_PROV_CODE = a.SERV_PROV_CODE
+				AND d.B1_PER_ID1 = a.B1_PER_ID1
+				AND d.B1_PER_ID2 = a.B1_PER_ID2
+				AND d.B1_PER_ID3 = a.B1_PER_ID3
+			LEFT JOIN g3dpttyp e ON  e.SERV_PROV_CODE = d.SERV_PROV_CODE
+				AND e.r3_dept_key = d.b1_asgn_dept
+			LEFT JOIN r3bureau f ON  f.SERV_PROV_CODE = e.SERV_PROV_CODE
+				AND f.R3_AGENCY_CODE = e.R3_AGENCY_CODE
+				AND f.r3_bureau_code = e.r3_bureau_code
+				AND f.serv_prov_code= e.serv_prov_code
+		  WHERE a.SERV_PROV_CODE = 'KNOXVILLE' 
+		  AND a.B1_PER_GROUP = 'ServiceRequest'
+		  AND  a.b1_appl_class not like 'INCOMPLETE'
+		  group by f.r3_bureau_des
+		ORDER BY Department</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
         <Field Name="DEPARTMENT">
@@ -686,12 +487,12 @@ ORDER BY department</CommandText>
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <CommandText>SELECT     R3_SUBGROUP_DESC AS PublicServiceGroup
-FROM         dbo.G3DPTTYP
-WHERE     (REC_STATUS = 'A') AND (R3_BUREAU_CODE = 'PS') AND (R3_DIVISION_CODE &lt;&gt; 'NA') and SERV_PROV_CODE ='KNOXVILLE'
+FROM         G3DPTTYP
+WHERE    SERV_PROV_CODE = 'KNOXVILLE' AND (REC_STATUS = 'A') AND (R3_BUREAU_CODE = 'PS') AND (R3_DIVISION_CODE &lt;&gt; 'NA')
 UNION
 SELECT     ' ALL' AS EXPR1
-
 ORDER BY PublicServiceGroup</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
         <Field Name="PUBLICSERVICEGROUP">
@@ -704,11 +505,12 @@ ORDER BY PublicServiceGroup</CommandText>
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <CommandText>SELECT     R1_PER_TYPE AS ServiceRequestType
-FROM         dbo.R3APPTYP
-WHERE     (REC_STATUS = 'A') AND (R1_PER_GROUP = 'ServiceRequest') and SERV_PROV_CODE ='KNOXVILLE'
+FROM         R3APPTYP
+WHERE     SERV_PROV_CODE = 'KNOXVILLE' and (REC_STATUS = 'A') AND (R1_PER_GROUP = 'ServiceRequest')
 union
-select ' ALL' ServiceRequestType
+select ' ALL'
 order by ServiceRequestType</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
         <Field Name="SERVICEREQUESTTYPE">
@@ -720,207 +522,18 @@ order by ServiceRequestType</CommandText>
     <DataSet Name="CreatedBy">
       <Query>
         <DataSourceName>Accela</DataSourceName>
-        <CommandText>WITH service_requests_vw AS (
-SELECT a.SERV_PROV_CODE,
-    a.B1_PER_ID1,
-    a.B1_PER_ID2,
-    a.B1_PER_ID3,
-    a.B1_ALT_ID SERVICE_REQUEST_NUM,
-	CONVERT(VARCHAR(MAX),ISNULL(b.B1_ADDRESS_NBR,'0')) STREET_NUMBER,
-    ISNULL(b.B1_STR_DIR,' ') STREET_NAME_DIR,
-    ISNULL(b.B1_STR_DIR,' ') STREET_NAME_PREFIX,
-    ISNULL(b.B1_STR_NAME,' ') STREET_NAME,
-    ISNULL(b.B1_STR_SUFFIX,' ') STREET_NAME_SUFFIX,
-    --TRIM(TO_CHAR(NVL(b.b1_hse_nbr_start,'0'))
-    --|| ' '
-    --|| TRIM (NVL(b.B1_STR_DIR,' ')
-    --|| ' '
-    --|| NVL(b.B1_STR_NAME,' '))
-    --|| ' '
-    --|| NVL(b.B1_STR_SUFFIX,' ')) ADDRESS,
-	LTRIM(RTRIM(ISNULL(CONVERT(NVARCHAR(MAX), b.b1_hse_nbr_start), '0')
-        + ' ' + 
-        ISNULL(RTRIM(LTRIM(CONVERT(NVARCHAR(MAX), b.B1_STR_DIR))), ' ')
-        + ' '
-        + ISNULL(RTRIM(LTRIM(CONVERT(NVARCHAR(MAX), b.B1_STR_NAME))), ' ')
-        + ' ' + 
-        ISNULL(RTRIM(LTRIM(CONVERT(NVARCHAR(MAX), b.B1_STR_SUFFIX))), ' ')
-    )) ADDRESS,
-    ISNULL(servicearea.B1_CHECKLIST_COMMENT,'Unknown') WDA_1_VALUE,
-    ISNULL(councildistrict.B1_CHECKLIST_COMMENT,'Unknown') WDA_2_VALUE,
-    ' ' WDA_3_VALUE,
-    a.REC_DATE CREATED_DATE,
-    a.B1_CREATED_BY,
-    A.REC_FUL_NAM,
-    d.B1_ASGN_DEPT GROUP_NAME,
-    e.R3_SUBGROUP_DESC SR_GROUP_DESC,
-    ISNULL(a.B1_APPL_STATUS,'OPEN') STATUS_CODE,
-    a.B1_APPL_STATUS,
- --   DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 
-	--'Canceled', 'C','O') STATUS_ABBR,
-	CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-        WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' 
-    END AS STATUS_ABBR,
-    a.B1_APPL_STATUS_DATE STATUS_DATE,
-    a.B1_PER_TYPE TYPE_NAME,
-    ' ' DETAILS,
-    ISNULL(C.R1_DUE_DAY,1) DURATIONS_DAYS,
-    a.B1_PER_TYPE COK_DESCRIPTION,
-    ' ' COK_DESCRIPTION3,
-    --CASE
-    --  WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') = 'O'
-    --  AND ROUND((sysdate-a.REC_DATE+.5),1) &gt; NVL(C.R1_DUE_DAY,1)
-    --  THEN 1
-    --  ELSE 0
-    --END AS current_overdue,
-	CASE 
-	WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-        WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-		ELSE 'O' END ) = 'O'
-	AND ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), GETDATE())+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-	THEN 1
-	ELSE 0
-	END AS current_overdue,
-
-    --CASE
-    --  WHEN ROUND((sysdate-a.REC_DATE+.5),1) &gt; NVL(C.R1_DUE_DAY,1)
-    --  THEN 1
-    --  ELSE 0
-    --END AS overdue,
-	CASE
-      WHEN ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), GETDATE())+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-      THEN 1
-      ELSE 0
-    END AS overdue,
-
-    CASE
-      --WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') = 'C'
-      --THEN (to_date(TO_CHAR(a.B1_APPL_STATUS_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')-to_date(TO_CHAR(a.REC_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')+.5)
-	  WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) = 'C' 
-	 THEN (DATEDIFF(DAY, CONVERT(DATE, a.REC_DATE, 101), CONVERT(DATE, a.B1_APPL_STATUS_DATE, 101)) + 0.5)
-      ELSE 0
-    END AS response,
-    CASE
-      --WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') = 'O'
-      --AND ROUND((sysdate-a.REC_DATE+.5),1)&gt; NVL(C.R1_DUE_DAY,1)
-	  WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) = 'O'
-		AND ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), GETDATE())+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-      THEN 1
-      --WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') &lt;&gt; 'O'
-      --AND ROUND((a.B1_APPL_STATUS_DATE-a.REC_DATE+.5),1) &gt; NVL(C.R1_DUE_DAY,1)
-	  	  WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) &lt;&gt; 'O'
-		AND ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), a.B1_APPL_STATUS_DATE)+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-      THEN 1
-      ELSE 0
-    END AS overduration,
-    CASE
-   --   WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 
-	  --'Canceled', 'C','O') = 'O'
-   --   THEN (to_date(TO_CHAR(sysdate, 'mm/dd/yyyy'),'mm/dd/yyyy')-to_date(TO_CHAR(a.REC_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')+.5)
-   --   WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 
-	  --'Canceled', 'C','O') &lt;&gt; 'O'
-   --   THEN (to_date(TO_CHAR(a.B1_APPL_STATUS_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')-to_date(TO_CHAR(a.REC_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')+.5)
-   WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) = 'O'
-   THEN DATEDIFF(DAY, CONVERT(DATE, a.REC_DATE), GETDATE()) + 0.5
-	WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) &lt;&gt; 'O'
-		THEN (DATEDIFF(DAY, CONVERT(DATE, a.REC_DATE), CONVERT(DATE, a.B1_APPL_STATUS_DATE)) + 0.5)
-    END AS daysopen,
-    ' ' GEO_AREA_CODE,
-    ' ' GEO_AREA_VALUE,
-    SUBSTRING(ISNULL(servicearea.B1_CHECKLIST_COMMENT,'Unknown'),1,1) part_geo_area_value,
-    NULL updated_date,
-    f.r3_bureau_des,
-    g.r3_division_des,
-    e.r3_dept_key
-  FROM dbo.B1PERMIT a LEFT OUTER JOIN dbo.B3ADDRES b ON
-  b.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND b.B1_PER_ID1 = a.B1_PER_ID1
-  AND b.B1_PER_ID2 = a.B1_PER_ID2
-  AND b.B1_PER_ID3 = a.B1_PER_ID3
-  AND a.b1_alt_id NOT IN
-    (SELECT b1_alt_id FROM b1permit WHERE a.b1_appl_class = 'INCOMPLETE' and SERV_PROV_CODE = 'KNOXVILLE'
-    )
-  LEFT OUTER JOIN dbo.R3APPTYP c ON
-  c.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND c.R1_PER_GROUP = a.B1_PER_GROUP
-  AND c.R1_PER_TYPE = a.B1_PER_TYPE
-  AND c.R1_PER_SUB_TYPE = a.B1_PER_SUB_TYPE
-  AND c.R1_PER_CATEGORY = a.B1_PER_CATEGORY
-  LEFT OUTER JOIN dbo.BPERMIT_DETAIL d ON
-  d.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND d.B1_PER_ID1 = a.B1_PER_ID1
-  AND d.B1_PER_ID2 = a.B1_PER_ID2
-  AND d.B1_PER_ID3 = a.B1_PER_ID3
-  LEFT OUTER JOIN dbo.g3dpttyp e ON
-  e.SERV_PROV_CODE = d.SERV_PROV_CODE
-  AND e.r3_dept_key = d.b1_asgn_dept
-  LEFT OUTER JOIN dbo.r3bureau f ON
-  f.R3_AGENCY_CODE = e.R3_AGENCY_CODE
-  AND f.r3_bureau_code = e.r3_bureau_code
-  AND f.serv_prov_code = e.serv_prov_code
-  LEFT OUTER JOIN dbo.r3divisn g ON
-  g.SERV_PROV_CODE = E.SERV_PROV_CODE
-  AND G.R3_DIVISION_CODE = E.R3_DIVISION_CODE
-  AND G.R3_AGENCY_CODE = 'KNOX'
-  LEFT OUTER JOIN dbo.BCHCKBOX servicearea ON
-  servicearea.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND servicearea.B1_PER_ID1 = a.B1_PER_ID1
-  AND servicearea.B1_PER_ID2 = a.B1_PER_ID2
-  AND servicearea.B1_PER_ID3 = a.B1_PER_ID3
-  AND servicearea.B1_CHECKBOX_DESC = 'Service Area'
-  LEFT OUTER JOIN dbo.BCHCKBOX councildistrict ON
-  councildistrict.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND councildistrict.B1_PER_ID1 = a.B1_PER_ID1
-  AND councildistrict.B1_PER_ID2 = a.B1_PER_ID2
-  AND councildistrict.B1_PER_ID3 = a.B1_PER_ID3
-  AND councildistrict.B1_CHECKBOX_DESC = 'Council District'
-  WHERE a.B1_PER_GROUP = 'ServiceRequest' AND a.SERV_PROV_CODE = 'KNOXVILLE' 
-)
-
-SELECT distinct b1_created_by from service_requests_vw
-where b1_created_by in (select ga_user_id from dbo.G3staffs where ga_bureau_code = '311' and SERV_PROV_CODE ='KNOXVILLE')
+        <CommandText>select b1_created_by
+FROM B1PERMIT bp
+inner join  G3staffs gs 
+on gs.SERV_PROV_CODE = bp.SERV_PROV_CODE 
+and gs.ga_user_id = bp.b1_created_by
+where gs.ga_bureau_code = '311'
+and bp.SERV_PROV_CODE = 'KNOXVILLE' 
+group by bp.b1_created_by
 union
-select ' ALL' 
+select ' ALL'
 ORDER BY b1_created_by</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
         <Field Name="B1_CREATED_BY">
@@ -932,211 +545,18 @@ ORDER BY b1_created_by</CommandText>
     <DataSet Name="Statuses">
       <Query>
         <DataSourceName>Accela</DataSourceName>
-        <CommandText>WITH service_requests_vw AS (
-SELECT a.SERV_PROV_CODE,
-    a.B1_PER_ID1,
-    a.B1_PER_ID2,
-    a.B1_PER_ID3,
-    a.B1_ALT_ID SERVICE_REQUEST_NUM,
-	CONVERT(VARCHAR(MAX),ISNULL(b.B1_ADDRESS_NBR,'0')) STREET_NUMBER,
-    ISNULL(b.B1_STR_DIR,' ') STREET_NAME_DIR,
-    ISNULL(b.B1_STR_DIR,' ') STREET_NAME_PREFIX,
-    ISNULL(b.B1_STR_NAME,' ') STREET_NAME,
-    ISNULL(b.B1_STR_SUFFIX,' ') STREET_NAME_SUFFIX,
-    --TRIM(TO_CHAR(NVL(b.b1_hse_nbr_start,'0'))
-    --|| ' '
-    --|| TRIM (NVL(b.B1_STR_DIR,' ')
-    --|| ' '
-    --|| NVL(b.B1_STR_NAME,' '))
-    --|| ' '
-    --|| NVL(b.B1_STR_SUFFIX,' ')) ADDRESS,
-	LTRIM(RTRIM(ISNULL(CONVERT(NVARCHAR(MAX), b.b1_hse_nbr_start), '0')
-        + ' ' + 
-        ISNULL(RTRIM(LTRIM(CONVERT(NVARCHAR(MAX), b.B1_STR_DIR))), ' ')
-        + ' '
-        + ISNULL(RTRIM(LTRIM(CONVERT(NVARCHAR(MAX), b.B1_STR_NAME))), ' ')
-        + ' ' + 
-        ISNULL(RTRIM(LTRIM(CONVERT(NVARCHAR(MAX), b.B1_STR_SUFFIX))), ' ')
-    )) ADDRESS,
-    ISNULL(servicearea.B1_CHECKLIST_COMMENT,'Unknown') WDA_1_VALUE,
-    ISNULL(councildistrict.B1_CHECKLIST_COMMENT,'Unknown') WDA_2_VALUE,
-    ' ' WDA_3_VALUE,
-    a.REC_DATE CREATED_DATE,
-    a.B1_CREATED_BY,
-    A.REC_FUL_NAM,
-    d.B1_ASGN_DEPT GROUP_NAME,
-    e.R3_SUBGROUP_DESC SR_GROUP_DESC,
-    ISNULL(a.B1_APPL_STATUS,'OPEN') STATUS_CODE,
-    a.B1_APPL_STATUS,
- --   DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 
-	--'Canceled', 'C','O') STATUS_ABBR,
-	CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-        WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' 
-    END AS STATUS_ABBR,
-    a.B1_APPL_STATUS_DATE STATUS_DATE,
-    a.B1_PER_TYPE TYPE_NAME,
-    ' ' DETAILS,
-    ISNULL(C.R1_DUE_DAY,1) DURATIONS_DAYS,
-    a.B1_PER_TYPE COK_DESCRIPTION,
-    ' ' COK_DESCRIPTION3,
-    --CASE
-    --  WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') = 'O'
-    --  AND ROUND((sysdate-a.REC_DATE+.5),1) &gt; NVL(C.R1_DUE_DAY,1)
-    --  THEN 1
-    --  ELSE 0
-    --END AS current_overdue,
-	CASE 
-	WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-        WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-		ELSE 'O' END ) = 'O'
-	AND ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), GETDATE())+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-	THEN 1
-	ELSE 0
-	END AS current_overdue,
-
-    --CASE
-    --  WHEN ROUND((sysdate-a.REC_DATE+.5),1) &gt; NVL(C.R1_DUE_DAY,1)
-    --  THEN 1
-    --  ELSE 0
-    --END AS overdue,
-	CASE
-      WHEN ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), GETDATE())+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-      THEN 1
-      ELSE 0
-    END AS overdue,
-
-    CASE
-      --WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') = 'C'
-      --THEN (to_date(TO_CHAR(a.B1_APPL_STATUS_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')-to_date(TO_CHAR(a.REC_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')+.5)
-	  WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) = 'C' 
-	 THEN (DATEDIFF(DAY, CONVERT(DATE, a.REC_DATE, 101), CONVERT(DATE, a.B1_APPL_STATUS_DATE, 101)) + 0.5)
-      ELSE 0
-    END AS response,
-    CASE
-      --WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') = 'O'
-      --AND ROUND((sysdate-a.REC_DATE+.5),1)&gt; NVL(C.R1_DUE_DAY,1)
-	  WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) = 'O'
-		AND ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), GETDATE())+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-      THEN 1
-      --WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 'Canceled', 'C','O') &lt;&gt; 'O'
-      --AND ROUND((a.B1_APPL_STATUS_DATE-a.REC_DATE+.5),1) &gt; NVL(C.R1_DUE_DAY,1)
-	  	  WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) &lt;&gt; 'O'
-		AND ROUND(DATEDIFF(DAY, CONVERT(DATETIME,a.REC_DATE), a.B1_APPL_STATUS_DATE)+ 0.5, 1) &gt; COALESCE(C.R1_DUE_DAY, 1)
-      THEN 1
-      ELSE 0
-    END AS overduration,
-    CASE
-   --   WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 
-	  --'Canceled', 'C','O') = 'O'
-   --   THEN (to_date(TO_CHAR(sysdate, 'mm/dd/yyyy'),'mm/dd/yyyy')-to_date(TO_CHAR(a.REC_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')+.5)
-   --   WHEN DECODE(NVL(a.B1_APPL_STATUS,'OPEN'), 'OPEN', 'O', 'CLOSED', 'C', 'Completed', 'C', 'Duplicate - Closed', 'C', 
-	  --'Canceled', 'C','O') &lt;&gt; 'O'
-   --   THEN (to_date(TO_CHAR(a.B1_APPL_STATUS_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')-to_date(TO_CHAR(a.REC_DATE, 'mm/dd/yyyy'),'mm/dd/yyyy')+.5)
-   WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) = 'O'
-   THEN DATEDIFF(DAY, CONVERT(DATE, a.REC_DATE), GETDATE()) + 0.5
-	WHEN (CASE ISNULL(a.B1_APPL_STATUS,'OPEN')
-		WHEN 'OPEN' THEN 'O'
-        WHEN 'CLOSED' THEN 'C'
-        WHEN 'Completed' THEN 'C'
-        WHEN 'Duplicate - Closed' THEN 'C'
-        WHEN 'Canceled' THEN 'C'
-        ELSE 'O' END) &lt;&gt; 'O'
-		THEN (DATEDIFF(DAY, CONVERT(DATE, a.REC_DATE), CONVERT(DATE, a.B1_APPL_STATUS_DATE)) + 0.5)
-    END AS daysopen,
-    ' ' GEO_AREA_CODE,
-    ' ' GEO_AREA_VALUE,
-    SUBSTRING(ISNULL(servicearea.B1_CHECKLIST_COMMENT,'Unknown'),1,1) part_geo_area_value,
-    NULL updated_date,
-    f.r3_bureau_des,
-    g.r3_division_des,
-    e.r3_dept_key
-  FROM dbo.B1PERMIT a LEFT OUTER JOIN dbo.B3ADDRES b ON
-  b.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND b.B1_PER_ID1 = a.B1_PER_ID1
-  AND b.B1_PER_ID2 = a.B1_PER_ID2
-  AND b.B1_PER_ID3 = a.B1_PER_ID3
-  AND a.b1_alt_id NOT IN
-    (SELECT b1_alt_id FROM b1permit WHERE a.b1_appl_class = 'INCOMPLETE' and SERV_PROV_CODE = 'KNOXVILLE'
-    )
-  LEFT OUTER JOIN dbo.R3APPTYP c ON
-  c.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND c.R1_PER_GROUP = a.B1_PER_GROUP
-  AND c.R1_PER_TYPE = a.B1_PER_TYPE
-  AND c.R1_PER_SUB_TYPE = a.B1_PER_SUB_TYPE
-  AND c.R1_PER_CATEGORY = a.B1_PER_CATEGORY
-  LEFT OUTER JOIN dbo.BPERMIT_DETAIL d ON
-  d.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND d.B1_PER_ID1 = a.B1_PER_ID1
-  AND d.B1_PER_ID2 = a.B1_PER_ID2
-  AND d.B1_PER_ID3 = a.B1_PER_ID3
-  LEFT OUTER JOIN dbo.g3dpttyp e ON
-  e.SERV_PROV_CODE = d.SERV_PROV_CODE
-  AND e.r3_dept_key = d.b1_asgn_dept
-  LEFT OUTER JOIN dbo.r3bureau f ON
-  f.R3_AGENCY_CODE = e.R3_AGENCY_CODE
-  AND f.r3_bureau_code = e.r3_bureau_code
-  AND f.serv_prov_code = e.serv_prov_code
-  LEFT OUTER JOIN dbo.r3divisn g ON
-  g.SERV_PROV_CODE = E.SERV_PROV_CODE
-  AND G.R3_DIVISION_CODE = E.R3_DIVISION_CODE
-  AND G.R3_AGENCY_CODE = 'KNOX'
-  LEFT OUTER JOIN dbo.BCHCKBOX servicearea ON
-  servicearea.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND servicearea.B1_PER_ID1 = a.B1_PER_ID1
-  AND servicearea.B1_PER_ID2 = a.B1_PER_ID2
-  AND servicearea.B1_PER_ID3 = a.B1_PER_ID3
-  AND servicearea.B1_CHECKBOX_DESC = 'Service Area'
-  LEFT OUTER JOIN dbo.BCHCKBOX councildistrict ON
-  councildistrict.SERV_PROV_CODE = a.SERV_PROV_CODE
-  AND councildistrict.B1_PER_ID1 = a.B1_PER_ID1
-  AND councildistrict.B1_PER_ID2 = a.B1_PER_ID2
-  AND councildistrict.B1_PER_ID3 = a.B1_PER_ID3
-  AND councildistrict.B1_CHECKBOX_DESC = 'Council District'
-  WHERE a.B1_PER_GROUP = 'ServiceRequest' AND a.SERV_PROV_CODE = 'KNOXVILLE' 
-)
-
-SELECT distinct status_code 
-FROM service_requests_vw
+        <CommandText>SELECT ISNULL(bp.b1_appl_status,'OPEN') as STATUS_CODE
+FROM B1PERMIT bp
+WHERE SERV_PROV_CODE = 'KNOXVILLE'
+group by  ISNULL(bp.b1_appl_status,'OPEN')
 union
-SELECT ' ALL' 
+SELECT ' ALL' as status_code
 order by status_code</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
         <Field Name="STATUS_CODE">
-          <DataField>status_code</DataField>
+          <DataField>STATUS_CODE</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -1153,10 +573,10 @@ order by status_code</CommandText>
                   <Width>2.11478in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.85648in</Width>
+                  <Width>1.97107in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.58043in</Width>
+                  <Width>1.47626in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.45282in</Width>
@@ -1400,40 +820,10 @@ Status</Value>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <ColSpan>2</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox73">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value xml:space="preserve">
-</Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Right</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox35</rd:DefaultName>
-                          <Style>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
+                    <TablixCell />
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox74">
@@ -1577,7 +967,7 @@ Dur.</Value>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox3">
+                        <Textbox Name="ADDRESS">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1591,7 +981,7 @@ Dur.</Value>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox3</rd:DefaultName>
+                          <rd:DefaultName>ADDRESS</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -1688,38 +1078,10 @@ Dur.</Value>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <ColSpan>2</ColSpan>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="DETAILS">
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!DETAILS.Value</Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>DETAILS</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
+                    <TablixCell />
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox34">
@@ -2688,7 +2050,7 @@ Over Dur.</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Count(Fields!SERVICE_REQUEST_NUM.Value)</Value>
+                                  <Value>=CountDistinct(Fields!SERVICE_REQUEST_NUM.Value)</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -2717,7 +2079,7 @@ Over Dur.</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(iif(Fields!STATUS_ABBR.Value = "O", 1, 0))</Value>
+                                  <Value>=CountDistinct(Switch(Fields!STATUS_ABBR.Value = "O", Fields!SERVICE_REQUEST_NUM.Value))</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -2746,7 +2108,7 @@ Over Dur.</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Microsoft.VisualBasic.Interaction.iif(Fields!STATUS_ABBR.Value &lt;&gt; "O", 1, 0))</Value>
+                                  <Value>=CountDistinct(Switch(Fields!STATUS_ABBR.Value &lt;&gt; "O", Fields!SERVICE_REQUEST_NUM.Value))</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -2775,7 +2137,7 @@ Over Dur.</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!CURRENT_OVERDUE.Value)</Value>
+                                  <Value>=CountDistinct(Switch(Fields!CURRENT_OVERDUE.Value &lt;&gt; "0", Fields!SERVICE_REQUEST_NUM.Value))</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -2833,7 +2195,7 @@ Over Dur.</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!OVERDURATION.Value)</Value>
+                                  <Value>=CountDistinct(Switch(Fields!OVERDURATION.Value &lt;&gt; "0", Fields!SERVICE_REQUEST_NUM.Value))</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -2845,6 +2207,9 @@ Over Dur.</Value>
                           </Paragraphs>
                           <rd:DefaultName>Textbox33</rd:DefaultName>
                           <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
@@ -2862,7 +2227,7 @@ Over Dur.</Value>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=System.Math.round((Sum(Fields!OVERDURATION.Value) / Count(Fields!SERVICE_REQUEST_NUM.Value)) * 100, 1)</Value>
+                                  <Value>=System.Math.round((CountDistinct(Switch(Fields!OVERDURATION.Value &lt;&gt; "0", Fields!SERVICE_REQUEST_NUM.Value)) / CountDistinct(Fields!SERVICE_REQUEST_NUM.Value)) * 100, 1)</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontWeight>Bold</FontWeight>
@@ -3223,7 +2588,7 @@ Over Dur.</Value>
             <Top>0.05556in</Top>
             <Left>0.07812in</Left>
             <Height>2.96514in</Height>
-            <Width>10.20574in</Width>
+            <Width>10.21616in</Width>
             <Style />
           </Tablix>
         </ReportItems>
@@ -3705,7 +3070,7 @@ Over Dur.</Value>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>=DateAdd("h",1,Globals!ExecutionTime)</Value>
+                      <Value>=Globals!ExecutionTime</Value>
                       <Style>
                         <FontFamily>Times New Roman</FontFamily>
                       </Style>
@@ -3792,23 +3157,39 @@ Over Dur.</Value>
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <DefaultValue>
-        <Values>
-          <Value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
-        </Values>
+        <DataSetReference>
+          <DataSetName>Departments</DataSetName>
+          <ValueField>DEPARTMENT</ValueField>
+        </DataSetReference>
       </DefaultValue>
       <AllowBlank>true</AllowBlank>
       <Prompt>Only For Group:</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Departments</DataSetName>
+          <ValueField>DEPARTMENT</ValueField>
+          <LabelField>DEPARTMENT</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="PublicServiceGroup">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <DefaultValue>
-        <Values>
-          <Value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
-        </Values>
+        <DataSetReference>
+          <DataSetName>PublicServiceGroups</DataSetName>
+          <ValueField>PUBLICSERVICEGROUP</ValueField>
+        </DataSetReference>
       </DefaultValue>
       <AllowBlank>true</AllowBlank>
       <Prompt>For Public Service Only - Restrict to Group</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>PublicServiceGroups</DataSetName>
+          <ValueField>PUBLICSERVICEGROUP</ValueField>
+          <LabelField>PUBLICSERVICEGROUP</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="StreetName">
       <DataType>String</DataType>
@@ -3824,34 +3205,58 @@ Over Dur.</Value>
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <DefaultValue>
-        <Values>
-          <Value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
-        </Values>
+        <DataSetReference>
+          <DataSetName>Statuses</DataSetName>
+          <ValueField>STATUS_CODE</ValueField>
+        </DataSetReference>
       </DefaultValue>
       <AllowBlank>true</AllowBlank>
       <Prompt>Status: </Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>Statuses</DataSetName>
+          <ValueField>STATUS_CODE</ValueField>
+          <LabelField>STATUS_CODE</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="RequestType">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <DefaultValue>
-        <Values>
-          <Value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
-        </Values>
+        <DataSetReference>
+          <DataSetName>ServiceRequestType</DataSetName>
+          <ValueField>SERVICEREQUESTTYPE</ValueField>
+        </DataSetReference>
       </DefaultValue>
       <AllowBlank>true</AllowBlank>
       <Prompt>Request Type</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>ServiceRequestType</DataSetName>
+          <ValueField>SERVICEREQUESTTYPE</ValueField>
+          <LabelField>SERVICEREQUESTTYPE</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="CreatedBy">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
       <DefaultValue>
-        <Values>
-          <Value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true" />
-        </Values>
+        <DataSetReference>
+          <DataSetName>CreatedBy</DataSetName>
+          <ValueField>B1_CREATED_BY</ValueField>
+        </DataSetReference>
       </DefaultValue>
       <AllowBlank>true</AllowBlank>
       <Prompt>Created By: </Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>CreatedBy</DataSetName>
+          <ValueField>B1_CREATED_BY</ValueField>
+          <LabelField>B1_CREATED_BY</LabelField>
+        </DataSetReference>
+      </ValidValues>
     </ReportParameter>
     <ReportParameter Name="sortby">
       <DataType>String</DataType>
@@ -3967,6 +3372,5 @@ APj1r4D9qwoMELzAGhYAKkiNp/ya2MP6FaLIqta1zla/yUqWspS17NkCdBnAVISh0wmtaEdL2tJSBCiT
   <Language>en-US</Language>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportServerUrl>https://mtsup-ssrs-0.us.accela.com/ReportServer</rd:ReportServerUrl>
   <rd:ReportID>c7b77f70-c328-45ad-aa9a-0b876cb6170d</rd:ReportID>
 </Report>

@@ -49,7 +49,8 @@ INNER JOIN RPART_INVENTORY PI ON
 PI.SERV_PROV_CODE = PT.SERV_PROV_CODE and
 PI.PART_SEQ = PT.PART_SEQ
 INNER JOIN G3DPTTYP G3 ON 
-PD.B1_ASGN_DEPT = G3.R3_DEPT_KEY
+PD.B1_ASGN_DEPT = G3.R3_DEPT_KEY and
+PD.SERV_PROV_CODE = G3.SERV_PROV_CODE
 LEFT OUTER JOIN (SELECT 
 	EMPL_BADGE_INFO.SERV_PROV_CODE SERV_PROV_CODE,
 	EMPL_BADGE_INFO.B1_PER_ID1 B1_PER_ID1,
@@ -568,7 +569,6 @@ SELECT     ' All' AS UNIT</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>

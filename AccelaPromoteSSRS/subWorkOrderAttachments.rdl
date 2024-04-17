@@ -3,9 +3,9 @@
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="Accela">
-      <DataSourceReference>/PRODUCTION/KNOXVILLE/KNOXVILLE</DataSourceReference>
-      <rd:SecurityType>None</rd:SecurityType>
-      <rd:DataSourceID>66e87f2d-42f4-4f9c-8218-a79891d4bfd2</rd:DataSourceID>
+      <DataSourceReference>Accela</DataSourceReference>
+      <rd:SecurityType>DataBase</rd:SecurityType>
+      <rd:DataSourceID>40c9793c-ff98-4df8-a182-02e2dfccb3de</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -399,36 +399,11 @@ WHERE B1PERMIT.B1_ALT_ID = @ID AND
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>4.52083in</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Image Name="Image5">
-                          <Source>External</Source>
-                          <Value>=Fields!ImageURL.Value</Value>
-                          <Sizing>FitProportional</Sizing>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                          </Style>
-                        </Image>
-                        <ColSpan>6</ColSpan>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
                   <Height>0.25in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox1">
+                        <Textbox Name="Textbox2">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -442,7 +417,7 @@ WHERE B1PERMIT.B1_ALT_ID = @ID AND
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox1</rd:DefaultName>
+                          <rd:DefaultName>Textbox2</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>None</Style>
@@ -453,6 +428,31 @@ WHERE B1PERMIT.B1_ALT_ID = @ID AND
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <ColSpan>6</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>9.125in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Image Name="Image5">
+                          <Source>External</Source>
+                          <Value>=Fields!ImageURL.Value</Value>
+                          <Sizing>FitProportional</Sizing>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                          </Style>
+                        </Image>
                         <ColSpan>6</ColSpan>
                       </CellContents>
                     </TablixCell>
@@ -512,12 +512,15 @@ WHERE B1PERMIT.B1_ALT_ID = @ID AND
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet1</DataSetName>
-            <Height>5.90958in</Height>
+            <PageBreak>
+              <BreakLocation>Start</BreakLocation>
+            </PageBreak>
+            <Height>10.51375in</Height>
             <Width>7.50207in</Width>
             <Style />
           </Tablix>
         </ReportItems>
-        <Height>5.96167in</Height>
+        <Height>10.51375in</Height>
         <Style />
       </Body>
       <Width>7.50207in</Width>
