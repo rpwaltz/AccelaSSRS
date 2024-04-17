@@ -263,7 +263,7 @@ on bpd.SERV_PROV_CODE                 = bp.SERV_PROV_CODE
   AND bpd.B1_PER_ID3                  = bp.B1_PER_ID3
 left outer join     g3dpttyp g3
 ON bpd.serv_prov_code                = g3.serv_prov_code
-	AND bpd.b1_asgn_dept = g3.r3_dept_key
+  AND bpd.b1_asgn_dept = g3.r3_dept_key
 left outer join     r3bureau bu
 ON  bu.serv_prov_code                = g3.serv_prov_code
   AND bu.R3_AGENCY_CODE                = g3.R3_AGENCY_CODE
@@ -284,22 +284,23 @@ on servicearea.SERV_PROV_CODE       = bp.SERV_PROV_CODE
   AND councildistrict.B1_PER_ID2 = bp.B1_PER_ID2
   AND councildistrict.B1_PER_ID3 = bp.B1_PER_ID3
   AND councildistrict.B1_CHECKBOX_DESC = 'Council District'
-  left outer join v_related_record vrr on vrr.parent_record_id = bp.B1_ALT_ID 
+  left outer join v_related_record vrr on vrr.AGENCY_ID = bp.SERV_PROV_CODE AND vrr.parent_record_id = bp.B1_ALT_ID 
 where  
-BP.serv_prov_code = 'KNOXVILLE' and
-CONVERT(DATE, bp.b1_file_dd, 101) between
+BP.serv_prov_code = 'KNOXVILLE' 
+ AND bp.B1_PER_GROUP = 'ServiceRequest'
+ AND CONVERT(DATE, bp.b1_file_dd, 101) between
 CONVERT(DATE, @DetailDateBegin, 101) 
    AND DATEADD(DAY, 1, CONVERT(DATE, @DetailDateEnd, 101))
- AND bp.B1_PER_GROUP = 'ServiceRequest'
- AND  bp.b1_appl_class not like 'INCOMPLETE'
 
-and
+  AND bp.b1_appl_class not like 'INCOMPLETE'
+
+ AND
    case
       when @OnlyForGroup is null or len(trim(@OnlyForGroup)) = 0  or @OnlyForGroup = ' ALL' then 1
       when trim(upper(bu.R3_BUREAU_DES)) = trim(upper(@OnlyForGroup)) then 1
       else 0
    end = 1
-and
+ AND
    case
       when @PublicServiceGroup is null or len(trim(@PublicServiceGroup)) = 0 or @PublicServiceGroup = ' ALL' then 1
       when RIGHT(TRIM(@PublicServiceGroup),1) = ISNULL(councildistrict.B1_CHECKLIST_COMMENT,'Unknown') and 
@@ -311,19 +312,19 @@ and
       else 0
    end = 1
 
-and
+ AND
    case
       when @RequestType is null or len(trim(@RequestType)) = 0  or @RequestType = ' ALL' then 1
       when trim(upper(bp.B1_PER_TYPE)) like '%' + trim(upper(@RequestType)) + '%' then 1
       else 0
    end = 1
-and
+ AND
    case
       when @Status is null or len(trim(@Status)) = 0 or @Status = ' ALL' then 1
       when upper(bp.B1_APPL_STATUS) = trim(upper(@Status)) then 1
       else 0
    end = 1
-and
+ AND
    case
       when @CreatedBy is null or len(trim(@CreatedBy)) = 0 or @CreatedBy = ' ALL' then 1
       when trim(upper(bp.B1_CREATED_BY)) = trim(upper(@CreatedBy)) then 1
@@ -336,7 +337,7 @@ where
       when trim(upper(s.STREET_NAME)) like '%' + trim(upper(@StreetName)) + '%' then 1
       else 0
    end = 1
-and
+ AND
    case
       when @HouseNumber is null or len(trim(@HouseNumber)) = 0 then 1
       when trim(upper(s.address)) LIKE trim(upper(@HouseNumber)) + '%' then 1
@@ -462,19 +463,22 @@ end)</CommandText>
 				AND d.B1_PER_ID1 = a.B1_PER_ID1
 				AND d.B1_PER_ID2 = a.B1_PER_ID2
 				AND d.B1_PER_ID3 = a.B1_PER_ID3
-			LEFT JOIN g3dpttyp e ON  e.r3_dept_key = d.b1_asgn_dept
-			LEFT JOIN r3bureau f ON f.R3_AGENCY_CODE = e.R3_AGENCY_CODE
+			LEFT JOIN g3dpttyp e ON  e.SERV_PROV_CODE = d.SERV_PROV_CODE
+				AND e.r3_dept_key = d.b1_asgn_dept
+			LEFT JOIN r3bureau f ON  f.SERV_PROV_CODE = e.SERV_PROV_CODE
+				AND f.R3_AGENCY_CODE = e.R3_AGENCY_CODE
 				AND f.r3_bureau_code = e.r3_bureau_code
 				AND f.serv_prov_code= e.serv_prov_code
-		  WHERE a.B1_PER_GROUP = 'ServiceRequest'
+		  WHERE a.SERV_PROV_CODE = 'KNOXVILLE' 
+		  AND a.B1_PER_GROUP = 'ServiceRequest'
 		  AND  a.b1_appl_class not like 'INCOMPLETE'
 		  group by f.r3_bureau_des
-		ORDER BY Department
-</CommandText>
+		ORDER BY Department</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
         <Field Name="DEPARTMENT">
-          <DataField>DEPARTMENT</DataField>
+          <DataField>Department</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -484,14 +488,15 @@ end)</CommandText>
         <DataSourceName>Accela</DataSourceName>
         <CommandText>SELECT     R3_SUBGROUP_DESC AS PublicServiceGroup
 FROM         G3DPTTYP
-WHERE     (REC_STATUS = 'A') AND (R3_BUREAU_CODE = 'PS') AND (R3_DIVISION_CODE &lt;&gt; 'NA')
+WHERE    SERV_PROV_CODE = 'KNOXVILLE' AND (REC_STATUS = 'A') AND (R3_BUREAU_CODE = 'PS') AND (R3_DIVISION_CODE &lt;&gt; 'NA')
 UNION
 SELECT     ' ALL' AS EXPR1
 ORDER BY PublicServiceGroup</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
         <Field Name="PUBLICSERVICEGROUP">
-          <DataField>PUBLICSERVICEGROUP</DataField>
+          <DataField>PublicServiceGroup</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -501,14 +506,15 @@ ORDER BY PublicServiceGroup</CommandText>
         <DataSourceName>Accela</DataSourceName>
         <CommandText>SELECT     R1_PER_TYPE AS ServiceRequestType
 FROM         R3APPTYP
-WHERE     (REC_STATUS = 'A') AND (R1_PER_GROUP = 'ServiceRequest')
+WHERE     SERV_PROV_CODE = 'KNOXVILLE' and (REC_STATUS = 'A') AND (R1_PER_GROUP = 'ServiceRequest')
 union
 select ' ALL'
 order by ServiceRequestType</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
         <Field Name="SERVICEREQUESTTYPE">
-          <DataField>SERVICEREQUESTTYPE</DataField>
+          <DataField>ServiceRequestType</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -516,19 +522,22 @@ order by ServiceRequestType</CommandText>
     <DataSet Name="CreatedBy">
       <Query>
         <DataSourceName>Accela</DataSourceName>
-        <CommandText>  select b1_created_by
+        <CommandText>select b1_created_by
 FROM B1PERMIT bp
 inner join  G3staffs gs 
-on gs.ga_user_id = bp.b1_created_by
-where ga_bureau_code = '311'
+on gs.SERV_PROV_CODE = bp.SERV_PROV_CODE 
+and gs.ga_user_id = bp.b1_created_by
+where gs.ga_bureau_code = '311'
+and bp.SERV_PROV_CODE = 'KNOXVILLE' 
 group by bp.b1_created_by
 union
 select ' ALL'
 ORDER BY b1_created_by</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
         <Field Name="B1_CREATED_BY">
-          <DataField>B1_CREATED_BY</DataField>
+          <DataField>b1_created_by</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -538,6 +547,7 @@ ORDER BY b1_created_by</CommandText>
         <DataSourceName>Accela</DataSourceName>
         <CommandText>SELECT ISNULL(bp.b1_appl_status,'OPEN') as STATUS_CODE
 FROM B1PERMIT bp
+WHERE SERV_PROV_CODE = 'KNOXVILLE'
 group by  ISNULL(bp.b1_appl_status,'OPEN')
 union
 SELECT ' ALL' as status_code
@@ -982,7 +992,6 @@ Dur.</Value>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
