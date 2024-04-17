@@ -53,7 +53,8 @@ INNER JOIN RPART_INVENTORY PI ON
 PI.SERV_PROV_CODE = PT.SERV_PROV_CODE and
 PI.PART_SEQ = PT.PART_SEQ
 INNER JOIN G3DPTTYP G3 ON 
-PD.B1_ASGN_DEPT = G3.R3_DEPT_KEY
+PD.B1_ASGN_DEPT = G3.R3_DEPT_KEY and
+PD.SERV_PROV_CODE = G3.SERV_PROV_CODE
 LEFT OUTER JOIN (SELECT 
 	EMPL_BADGE_INFO.SERV_PROV_CODE SERV_PROV_CODE,
 	EMPL_BADGE_INFO.B1_PER_ID1 B1_PER_ID1,
@@ -121,6 +122,14 @@ PL.LOCATION_NAME IN (@Location)</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
+        <Field Name="PART_NUMBER">
+          <DataField>PART_NUMBER</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TRANSACTION_SEQ">
+          <DataField>TRANSACTION_SEQ</DataField>
+          <rd:TypeName>System.Int64</rd:TypeName>
+        </Field>
         <Field Name="TRANSACTION_TYPE">
           <DataField>TRANSACTION_TYPE</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -133,25 +142,17 @@ PL.LOCATION_NAME IN (@Location)</CommandText>
           <DataField>QUANTITY</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="PART_NUMBER">
-          <DataField>PART_NUMBER</DataField>
+        <Field Name="PART_DESCRIPTION">
+          <DataField>PART_DESCRIPTION</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="UNIT_COST">
           <DataField>UNIT_COST</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="PART_DESCRIPTION">
-          <DataField>PART_DESCRIPTION</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="PART_BIN">
           <DataField>PART_BIN</DataField>
           <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="TRANSACTION_SEQ">
-          <DataField>TRANSACTION_SEQ</DataField>
-          <rd:TypeName>System.Int64</rd:TypeName>
         </Field>
         <Field Name="COMMENTS">
           <DataField>COMMENTS</DataField>
