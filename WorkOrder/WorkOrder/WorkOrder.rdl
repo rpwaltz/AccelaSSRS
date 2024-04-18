@@ -13,8 +13,8 @@
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT    wo_ps_wo_vw.address
@@ -70,7 +70,7 @@ B1PERMIT.B1_PER_ID1 = wo_ps_wo_vw.B1_PER_ID1 AND
 B1PERMIT.B1_PER_ID2 = wo_ps_wo_vw.B1_PER_ID2 AND 
 B1PERMIT.B1_PER_ID3 = wo_ps_wo_vw.B1_PER_ID3
 WHERE     
-(B1PERMIT.B1_ALT_ID = @ID)  
+(B1PERMIT.B1_ALT_ID = @WorkOrderNumber)  
 AND B1PERMIT.SERV_PROV_CODE = 'KNOXVILLE'</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
@@ -125,8 +125,8 @@ AND B1PERMIT.SERV_PROV_CODE = 'KNOXVILLE'</CommandText>
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT B1PERMIT.B1_ALT_ID,
@@ -158,7 +158,7 @@ AND BCHCKBOX2.B1_CHECKBOX_DESC = 'Work Center'
 
 WHERE B1PERMIT.B1_PER_TYPE       = 'Work Order'
 AND B1PERMIT.SERV_PROV_CODE = 'KNOXVILLE'
-and B1PERMIT.B1_ALT_ID = @ID</CommandText>
+and B1PERMIT.B1_ALT_ID = @WorkOrderNumber</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -184,8 +184,8 @@ and B1PERMIT.B1_ALT_ID = @ID</CommandText>
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT B1PERMIT.B1_ALT_ID,
@@ -201,7 +201,7 @@ AND B1PERMIT.B1_PER_ID3       = BCHCKBOX.B1_PER_ID3
 AND B1PERMIT.B1_PER_TYPE      = 'Work Order'
 AND BCHCKBOX.B1_CHECKBOX_DESC = 'Service Request Information' 
 AND  B1PERMIT.SERV_PROV_CODE  = 'KNOXVILLE'
-and B1PERMIT.B1_ALT_ID = @ID</CommandText>
+and B1PERMIT.B1_ALT_ID = @WorkOrderNumber</CommandText>
       </Query>
       <Fields>
         <Field Name="B1_ALT_ID">
@@ -222,8 +222,8 @@ and B1PERMIT.B1_ALT_ID = @ID</CommandText>
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT B1PERMIT.B1_ALT_ID,
@@ -235,7 +235,7 @@ AND B1PERMIT.B1_PER_ID1       = GWORK_ORDER_TASK.B1_PER_ID1
 AND B1PERMIT.B1_PER_ID2       = GWORK_ORDER_TASK.B1_PER_ID2
 AND B1PERMIT.B1_PER_ID3       = GWORK_ORDER_TASK.B1_PER_ID3 
 AND  B1PERMIT.SERV_PROV_CODE  = 'KNOXVILLE'
-and B1PERMIT.B1_ALT_ID = @ID</CommandText>
+and B1PERMIT.B1_ALT_ID = @WorkOrderNumber</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -253,13 +253,13 @@ and B1PERMIT.B1_ALT_ID = @ID</CommandText>
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT V_RELATED_RECORD.CHILD_RECORD_ID,
   V_RELATED_RECORD.PARENT_RECORD_ID
-FROM V_RELATED_RECORD WHERE V_RELATED_RECORD.CHILD_RECORD_ID=@ID</CommandText>
+FROM V_RELATED_RECORD WHERE V_RELATED_RECORD.CHILD_RECORD_ID=@WorkOrderNumber</CommandText>
       </Query>
       <Fields>
         <Field Name="CHILD_RECORD_ID">
@@ -276,8 +276,8 @@ FROM V_RELATED_RECORD WHERE V_RELATED_RECORD.CHILD_RECORD_ID=@ID</CommandText>
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT     B1PERMIT.B1_ALT_ID, GWORK_ORDER_COSTING.COST_UNIT_TYPE, GWORK_ORDER_COSTING.COST_ITEM, 
@@ -291,7 +291,7 @@ WHERE     GWORK_ORDER_COSTING.SERV_PROV_CODE = B1PERMIT.SERV_PROV_CODE AND GWORK
                       GWORK_ORDER_COSTING.B1_PER_ID1 = GCOSTING_QUANTITY.B1_PER_ID1 AND 
                       GWORK_ORDER_COSTING.B1_PER_ID2 = GCOSTING_QUANTITY.B1_PER_ID2 AND 
                       GWORK_ORDER_COSTING.B1_PER_ID3 = GCOSTING_QUANTITY.B1_PER_ID3 AND 
-                      GWORK_ORDER_COSTING.COST_SEQ_NBR = GCOSTING_QUANTITY.ENTITY_ID AND B1PERMIT.B1_ALT_ID = @ID AND 
+                      GWORK_ORDER_COSTING.COST_SEQ_NBR = GCOSTING_QUANTITY.ENTITY_ID AND B1PERMIT.B1_ALT_ID = @WorkOrderNumber AND 
                       GWORK_ORDER_COSTING.COST_UNIT_TYPE = 'Hours'
 					  AND B1PERMIT.SERV_PROV_CODE = 'KNOXVILLE'
 GROUP BY B1PERMIT.B1_ALT_ID, GWORK_ORDER_COSTING.COST_UNIT_TYPE, GWORK_ORDER_COSTING.COST_ITEM</CommandText>
@@ -328,8 +328,8 @@ GROUP BY B1PERMIT.B1_ALT_ID, GWORK_ORDER_COSTING.COST_UNIT_TYPE, GWORK_ORDER_COS
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT B1PERMIT.B1_ALT_ID,
@@ -343,7 +343,7 @@ AND B1PERMIT.B1_PER_ID2       = B3CONTACT.B1_PER_ID2
 AND B1PERMIT.B1_PER_ID3       = B3CONTACT.B1_PER_ID3
 AND B3CONTACT.B1_CONTACT_TYPE = 'Service Rep' 
 AND  B1PERMIT.SERV_PROV_CODE  = 'KNOXVILLE'
-and B1PERMIT.B1_ALT_ID = @ID</CommandText>
+and B1PERMIT.B1_ALT_ID = @WorkOrderNumber</CommandText>
       </Query>
       <Fields>
         <Field Name="B1_ALT_ID">
@@ -364,8 +364,8 @@ and B1PERMIT.B1_ALT_ID = @ID</CommandText>
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT     B1PERMIT.B1_ALT_ID, B3CONTACT.B1_FNAME AS C_FName, B3CONTACT.B1_LNAME AS C_LName, B3CONTACT.B1_PHONE1, 
@@ -373,7 +373,7 @@ and B1PERMIT.B1_ALT_ID = @ID</CommandText>
 FROM         B1PERMIT, B3CONTACT
 WHERE     B1PERMIT.SERV_PROV_CODE = B3CONTACT.SERV_PROV_CODE AND B1PERMIT.B1_PER_ID1 = B3CONTACT.B1_PER_ID1 AND 
                       B1PERMIT.B1_PER_ID2 = B3CONTACT.B1_PER_ID2 AND B1PERMIT.B1_PER_ID3 = B3CONTACT.B1_PER_ID3 AND 
-                      (B3CONTACT.B1_CONTACT_TYPE = 'Citizen') AND (B1PERMIT.B1_ALT_ID = @ID)
+                      (B3CONTACT.B1_CONTACT_TYPE = 'Citizen') AND (B1PERMIT.B1_ALT_ID = @WorkOrderNumber)
 					  AND B1PERMIT.SERV_PROV_CODE  = 'KNOXVILLE'</CommandText>
       </Query>
       <Fields>
@@ -403,8 +403,8 @@ WHERE     B1PERMIT.SERV_PROV_CODE = B3CONTACT.SERV_PROV_CODE AND B1PERMIT.B1_PER
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT BPERMIT_COMMENT.TEXT,
@@ -414,7 +414,7 @@ INNER JOIN B1PERMIT
 ON BPERMIT_COMMENT.SERV_PROV_CODE = B1PERMIT.SERV_PROV_CODE
 AND BPERMIT_COMMENT.B1_PER_ID1    = B1PERMIT.B1_PER_ID1
 AND BPERMIT_COMMENT.B1_PER_ID2    = B1PERMIT.B1_PER_ID2
-AND BPERMIT_COMMENT.B1_PER_ID3    = B1PERMIT.B1_PER_ID3 and B1PERMIT.B1_ALT_ID = @ID  AND B1PERMIT.SERV_PROV_CODE  = 'KNOXVILLE'</CommandText>
+AND BPERMIT_COMMENT.B1_PER_ID3    = B1PERMIT.B1_PER_ID3 and B1PERMIT.B1_ALT_ID = @WorkOrderNumber  AND B1PERMIT.SERV_PROV_CODE  = 'KNOXVILLE'</CommandText>
       </Query>
       <Fields>
         <Field Name="TEXT">
@@ -431,8 +431,8 @@ AND BPERMIT_COMMENT.B1_PER_ID3    = B1PERMIT.B1_PER_ID3 and B1PERMIT.B1_ALT_ID =
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT     ASSIGNED_GROUP_DESCR, ASSIGNED_TO, LOCATION, SOURCE_OF_CALL
@@ -575,7 +575,7 @@ FROM        (SELECT
   WHERE a.B1_PER_TYPE           = 'Work Order'
   AND a.B1_PER_SUB_TYPE         = 'Public Service'
   AND a.SERV_PROV_CODE  = 'KNOXVILLE' 
-  AND a.B1_ALT_ID = @ID
+  AND a.B1_ALT_ID = @WorkOrderNumber
   ) MAIN 
   ) A
  </CommandText>
@@ -603,14 +603,14 @@ FROM        (SELECT
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT     b.B1_WORK_DESC
 FROM         B1PERMIT a, BWORKDES b
 WHERE     a.SERV_PROV_CODE = b.SERV_PROV_CODE AND a.B1_PER_ID1 = b.B1_PER_ID1 AND a.B1_PER_ID2 = b.B1_PER_ID2 AND a.B1_PER_ID3 = b.B1_PER_ID3 AND 
-                      (a.B1_ALT_ID = @ID) 
+                      (a.B1_ALT_ID = @WorkOrderNumber) 
 AND a.SERV_PROV_CODE  = 'KNOXVILLE'</CommandText>
       </Query>
       <Fields>
@@ -624,15 +624,15 @@ AND a.SERV_PROV_CODE  = 'KNOXVILLE'</CommandText>
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT     B1PERMIT.B1_ALT_ID, BCHCKBOX.B1_CHECKBOX_DESC, BCHCKBOX.B1_CHECKLIST_COMMENT AS Intersection
 FROM         B1PERMIT, BCHCKBOX
 WHERE     B1PERMIT.SERV_PROV_CODE = BCHCKBOX.SERV_PROV_CODE AND B1PERMIT.B1_PER_ID1 = BCHCKBOX.B1_PER_ID1 AND 
                       B1PERMIT.B1_PER_ID2 = BCHCKBOX.B1_PER_ID2 AND B1PERMIT.B1_PER_ID3 = BCHCKBOX.B1_PER_ID3 AND 
-                      (BCHCKBOX.B1_CHECKBOX_DESC = 'Intersection') AND (B1PERMIT.B1_ALT_ID = @ID) AND 
+                      (BCHCKBOX.B1_CHECKBOX_DESC = 'Intersection') AND (B1PERMIT.B1_ALT_ID = @WorkOrderNumber) AND 
                       (BCHCKBOX.B1_CHECKBOX_TYPE = 'COK_INTERNAL')
 AND B1PERMIT.SERV_PROV_CODE  = 'KNOXVILLE'</CommandText>
       </Query>
@@ -655,8 +655,8 @@ AND B1PERMIT.SERV_PROV_CODE  = 'KNOXVILLE'</CommandText>
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT     E.CLOBTEXT
@@ -672,7 +672,7 @@ E.B1_PER_ID1 = B.B1_PER_ID1 AND E.B1_PER_ID2 = B.B1_PER_ID2 AND E.B1_PER_ID3 = B
                           (SELECT     MAX(PARENT_RECORD_ID) AS EXPR1
                             FROM          V_RELATED_RECORD
                             WHERE      
-							(CHILD_RECORD_ID = (@ID)
+							(CHILD_RECORD_ID = (@WorkOrderNumber)
 							)
 							)) 
 							AND (E.CLOBTEXT IS NOT NULL)</CommandText>
@@ -688,8 +688,8 @@ E.B1_PER_ID1 = B.B1_PER_ID1 AND E.B1_PER_ID2 = B.B1_PER_ID2 AND E.B1_PER_ID3 = B
       <Query>
         <DataSourceName>Accela</DataSourceName>
         <QueryParameters>
-          <QueryParameter Name="@ID">
-            <Value>=Parameters!ID.Value</Value>
+          <QueryParameter Name="@WorkOrderNumber">
+            <Value>=Parameters!WorkOrderNumber.Value</Value>
           </QueryParameter>
         </QueryParameters>
         <CommandText>SELECT     BPERMIT_COMMENT.TEXT
@@ -697,7 +697,7 @@ FROM         BPERMIT_COMMENT, B1PERMIT
 WHERE     BPERMIT_COMMENT.SERV_PROV_CODE = B1PERMIT.SERV_PROV_CODE AND 
                       BPERMIT_COMMENT.B1_PER_ID1 = B1PERMIT.B1_PER_ID1 AND 
                       BPERMIT_COMMENT.B1_PER_ID2 = B1PERMIT.B1_PER_ID2 AND 
-                      BPERMIT_COMMENT.B1_PER_ID3 = B1PERMIT.B1_PER_ID3 AND (B1PERMIT.B1_ALT_ID = @ID)
+                      BPERMIT_COMMENT.B1_PER_ID3 = B1PERMIT.B1_PER_ID3 AND (B1PERMIT.B1_ALT_ID = @WorkOrderNumber)
   AND B1PERMIT.SERV_PROV_CODE  = 'KNOXVILLE'</CommandText>
       </Query>
       <Fields>
@@ -2526,9 +2526,9 @@ WHERE     BPERMIT_COMMENT.SERV_PROV_CODE = B1PERMIT.SERV_PROV_CODE AND
     </ReportSection>
   </ReportSections>
   <ReportParameters>
-    <ReportParameter Name="ID">
+    <ReportParameter Name="WorkOrderNumber">
       <DataType>String</DataType>
-      <Prompt>ID</Prompt>
+      <Prompt>WorkOrderNumber</Prompt>
     </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
@@ -2539,7 +2539,7 @@ WHERE     BPERMIT_COMMENT.SERV_PROV_CODE = B1PERMIT.SERV_PROV_CODE AND
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>0</RowIndex>
-          <ParameterName>ID</ParameterName>
+          <ParameterName>WorkOrderNumber</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

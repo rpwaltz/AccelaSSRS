@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
-  <DataSources>
-    <DataSource Name="Accela">
-      <DataSourceReference>Accela</DataSourceReference>
-      <rd:SecurityType>DataBase</rd:SecurityType>
-      <rd:DataSourceID>40c9793c-ff98-4df8-a182-02e2dfccb3de</rd:DataSourceID>
-    </DataSource>
-  </DataSources>
+	<DataSources>
+		<DataSource Name="Accela">
+			<DataSourceReference>Accela</DataSourceReference>
+			<rd:SecurityType>DataBase</rd:SecurityType>
+			<rd:DataSourceID>40c9793c-ff98-4df8-a182-02e2dfccb3de</rd:DataSourceID>
+		</DataSource>
+	</DataSources>
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
@@ -399,47 +399,7 @@ WHERE B1PERMIT.B1_ALT_ID = @ID AND
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.25in</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox2">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!DOC_DESCRIPTION.Value</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox2</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                        <ColSpan>6</ColSpan>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>9.125in</Height>
+                  <Height>4.52083in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -453,6 +413,46 @@ WHERE B1PERMIT.B1_ALT_ID = @ID AND
                             </Border>
                           </Style>
                         </Image>
+                        <ColSpan>6</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!DOC_DESCRIPTION.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
                         <ColSpan>6</ColSpan>
                       </CellContents>
                     </TablixCell>
@@ -512,15 +512,12 @@ WHERE B1PERMIT.B1_ALT_ID = @ID AND
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet1</DataSetName>
-            <PageBreak>
-              <BreakLocation>Start</BreakLocation>
-            </PageBreak>
-            <Height>10.51375in</Height>
+            <Height>5.90958in</Height>
             <Width>7.50207in</Width>
             <Style />
           </Tablix>
         </ReportItems>
-        <Height>10.51375in</Height>
+        <Height>5.96167in</Height>
         <Style />
       </Body>
       <Width>7.50207in</Width>
