@@ -2,10 +2,15 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
+    <DataSource Name="AccelaTest">
+      <DataSourceReference>/NONPROD1/KNOXVILLE/KNOXVILLE</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>d3117ad6-2b63-4ad7-a4b3-bc9afdf477b5</rd:DataSourceID>
+    </DataSource>
     <DataSource Name="Accela">
-      <DataSourceReference>Accela</DataSourceReference>
-      <rd:SecurityType>DataBase</rd:SecurityType>
-      <rd:DataSourceID>40c9793c-ff98-4df8-a182-02e2dfccb3de</rd:DataSourceID>
+      <DataSourceReference>/NONPROD1/KNOXVILLE/KNOXVILLE</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>58625fbc-7a93-47b6-a351-8a1ccb9b1bed</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>

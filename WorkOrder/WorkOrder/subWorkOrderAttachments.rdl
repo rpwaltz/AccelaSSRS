@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
-	<DataSources>
-		<DataSource Name="Accela">
-			<DataSourceReference>Accela</DataSourceReference>
-			<rd:SecurityType>DataBase</rd:SecurityType>
-			<rd:DataSourceID>40c9793c-ff98-4df8-a182-02e2dfccb3de</rd:DataSourceID>
-		</DataSource>
-	</DataSources>
+  <DataSources>
+    <DataSource Name="Accela">
+      <DataSourceReference>/PRODUCTION/KNOXVILLE/KNOXVILLE</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>66e87f2d-42f4-4f9c-8218-a79891d4bfd2</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
   <DataSets>
     <DataSet Name="DataSet1">
       <Query>
