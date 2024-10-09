@@ -1,0 +1,354 @@
+‹¯¨<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Textbox Name="Textbox1">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=  Ucase(First(Fields!B1_FNAME.Value, "DataSet1")) + IIF(First(Fields!B1_MNAME.Value, "DataSet1") = " ", Ucase(First(Fields!B1_MNAME.Value, "DataSet1")), " " + Ucase(First(Fields!B1_MNAME.Value, "DataSet1")) +" ") +  ucase(First(Fields!B1_LNAME.Value, "DataSet1")) +  "&lt;br&gt;" 
++ First(Fields!STREET_NAME_PREFIX.Value, "DataSet1") + " " + First(Fields!STREET_NUMBER.Value, "DataSet1")+ " " + First(Fields!STREET_NAME.Value, "DataSet1") + " " + First(Fields!STREET_NAME_SUFFIX.Value, "DataSet1") +  "&lt;br&gt;"
++ First(Fields!CITY.Value, "DataSet1")+ ", " + First(Fields!STATE_CODE.Value, "DataSet1") + " " + First(Fields!ZIP_CODE.Value, "DataSet1")</Value>
+                <MarkupType>HTML</MarkupType>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>1.75499in</Top>
+        <Left>2.17583in</Left>
+        <Height>0.25in</Height>
+        <Width>3.03472in</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox2">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=mid(First(Fields!SERVICE_REQUEST_NUM.Value, "DataSet1"),4,4) + "# " + mid(First(Fields!SERVICE_REQUEST_NUM.Value, "DataSet1"),9,7)</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox2</rd:DefaultName>
+        <Top>1.50499in</Top>
+        <Left>3.91541in</Left>
+        <Height>0.25in</Height>
+        <Width>1.29514in</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <Height>3.38416in</Height>
+    <Style />
+  </Body>
+  <Width>5.47917in</Width>
+  <Page>
+    <PageHeight>4in</PageHeight>
+    <PageWidth>6in</PageWidth>
+    <LeftMargin>0.25in</LeftMargin>
+    <RightMargin>0.25in</RightMargin>
+    <TopMargin>0.15in</TopMargin>
+    <BottomMargin>0.25in</BottomMargin>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="AccelaTest">
+      <DataSourceReference>AccelaTest</DataSourceReference>
+      <rd:SecurityType>DataBase</rd:SecurityType>
+      <rd:DataSourceID>73db8fd1-a6a4-4bc5-8d57-a144fe5038cc</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <Query>
+        <DataSourceName>AccelaTest</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name=":setId">
+            <Value>=Parameters!setId.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT a.SERV_PROV_CODE,
+    a.B1_PER_ID1,
+    a.B1_PER_ID2,
+    a.B1_PER_ID3,
+    a.B1_ALT_ID SERVICE_REQUEST_NUM,
+    a.B1_PER_TYPE TYPE_CODE,
+    aa.B1_PRIORITY PRIORITY_CODE,
+    a.REC_STATUS STATUS_CODE,
+    TO_CHAR(a.B1_APPL_STATUS_DATE,'MM/DD/YYYY') STATUS_DATE,
+    to_CHAR(b.B1_HSE_NBR_START) STREET_NUMBER,
+    b.B1_STR_DIR STREET_NAME_PREFIX,
+    b.B1_STR_NAME STREET_NAME,
+    b.B1_STR_SUFFIX STREET_NAME_SUFFIX,
+    b.B1_STR_SUFFIX_DIR STREET_SUFFIX_DIRECTION,
+    b.B1_SITUS_CITY CITY,
+    b.B1_SITUS_STATE STATE_CODE,
+    b.B1_SITUS_ZIP ZIP_CODE,
+    TO_CHAR(a.REC_DATE,'MM/DD/YYYY') CREATED_DATE,
+    TO_CHAR(A.REC_DATE,'MON')
+    || ' '
+    || TO_CHAR(A.REC_DATE,'DD')
+    || ' '
+    || TO_CHAR(A.REC_DATE, 'YYYY')
+    || ' '
+    || TO_CHAR(A.REC_DATE,'HH')
+    || ':'
+    || TO_CHAR(A.REC_DATE,'MI')
+    || TO_CHAR(A.REC_DATE,'AM') CREATED_DATETIME,
+    a.REC_FUL_NAM CREATED_BY_EID,
+    NULL UPDATED_DATE,
+    c.B1_FNAME,
+    nvl(c.B1_MNAME,' ' ) B1_MNAME,
+    c.B1_LNAME,
+    TRIM(TO_CHAR(NVL(b.B1_HSE_NBR_START,'0'))
+    || ' '
+    || TRIM (NVL(b.B1_STR_DIR,' ')
+    || ' '
+    || NVL(b.B1_STR_NAME,' '))
+    || ' '
+    || NVL(b.B1_STR_SUFFIX,' ')) ADDRESS,
+
+
+
+
+aa.first_issued_date
+FROM
+B1PERMIT a,
+BPERMIT_DETAIL aa,
+ACCELA.B3ADDRES b,
+ACCELA.B3CONTACT c,
+ACCELA.BWORKDES d,
+b1_expiration ex,
+ACCELA.SETDETAILS
+where
+a.b1_per_group = 'Enforcement' and
+a.b1_per_type = 'Stormwater' and
+a.b1_per_sub_type = 'SPAP' and
+a.b1_per_category = 'NA' and
+a.b1_appl_status = 'Active' and
+aa.serv_prov_code = a.serv_prov_code and
+aa.b1_per_id1 = a.b1_per_id1 and
+aa.b1_per_id2 = a.b1_per_id2 and
+aa.b1_per_id3 = a.b1_per_id3 and
+nvl(aa.first_issued_date,to_date('01/01/1950','MM/DD/YYYY'))
+&lt; to_date('01/01/' || to_char(to_number(to_char(sysdate,'YYYY'))),'MM/DD/YYYY') and
+ex.serv_prov_code (+) = a.serv_prov_code and
+ex.b1_per_id1 (+) = a.b1_per_id1 and
+ex.b1_per_id2 (+) = a.b1_per_id2 and
+ex.b1_per_id3 (+) = a.b1_per_id3 and
+ex.expiration_date &lt; sysdate - 30 -- graceperioddays
+
+ AND b.SERV_PROV_CODE (+) = a.SERV_PROV_CODE
+  AND b.B1_PER_ID1 (+)     = a.B1_PER_ID1
+  AND b.B1_PER_ID2 (+)     = a.B1_PER_ID2
+  AND b.B1_PER_ID3 (+)     = a.B1_PER_ID3
+  AND c.SERV_PROV_CODE (+) = a.SERV_PROV_CODE
+  AND c.B1_PER_ID1 (+)     = a.B1_PER_ID1
+  AND c.B1_PER_ID2 (+)     = a.B1_PER_ID2
+  AND c.B1_PER_ID3 (+)     = a.B1_PER_ID3
+  AND c.b1_contact_type    = 'Applicant'
+  AND d.SERV_PROV_CODE (+) = a.SERV_PROV_CODE
+  AND d.B1_PER_ID1 (+)     = a.B1_PER_ID1
+  AND d.B1_PER_ID2 (+)     = a.B1_PER_ID2
+  AND d.B1_PER_ID3 (+)     = a.B1_PER_ID3 
+  AND ACCELA.SETDETAILS.SERV_PROV_CODE = a.SERV_PROV_CODE AND 
+                      ACCELA.SETDETAILS.B1_PER_ID1 = a.B1_PER_ID1 AND 
+                      ACCELA.SETDETAILS.B1_PER_ID2 = a.B1_PER_ID2 AND 
+                      ACCELA.SETDETAILS.B1_PER_ID3 = a.B1_PER_ID3 AND
+ (ACCELA.SETDETAILS.SET_ID = :setId)</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="B1_FNAME">
+          <DataField>B1_FNAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SERV_PROV_CODE">
+          <DataField>SERV_PROV_CODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STREET_NAME_PREFIX">
+          <DataField>STREET_NAME_PREFIX</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="B1_PER_ID1">
+          <DataField>B1_PER_ID1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="B1_PER_ID2">
+          <DataField>B1_PER_ID2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="B1_LNAME">
+          <DataField>B1_LNAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STREET_NAME">
+          <DataField>STREET_NAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="B1_PER_ID3">
+          <DataField>B1_PER_ID3</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STREET_NUMBER">
+          <DataField>STREET_NUMBER</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TYPE_CODE">
+          <DataField>TYPE_CODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STREET_NAME_SUFFIX">
+          <DataField>STREET_NAME_SUFFIX</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CREATED_DATE">
+          <DataField>CREATED_DATE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PRIORITY_CODE">
+          <DataField>PRIORITY_CODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="B1_MNAME">
+          <DataField>B1_MNAME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STATUS_CODE">
+          <DataField>STATUS_CODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CITY">
+          <DataField>CITY</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STATUS_DATE">
+          <DataField>STATUS_DATE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STATE_CODE">
+          <DataField>STATE_CODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ZIP_CODE">
+          <DataField>ZIP_CODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SERVICE_REQUEST_NUM">
+          <DataField>SERVICE_REQUEST_NUM</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STREET_SUFFIX_DIRECTION">
+          <DataField>STREET_SUFFIX_DIRECTION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CREATED_DATETIME">
+          <DataField>CREATED_DATETIME</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CREATED_BY_EID">
+          <DataField>CREATED_BY_EID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="UPDATED_DATE">
+          <DataField>UPDATED_DATE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ADDRESS">
+          <DataField>ADDRESS</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FIRST_ISSUED_DATE">
+          <DataField>FIRST_ISSUED_DATE</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="DataSet2">
+      <Query>
+        <DataSourceName>AccelaTest</DataSourceName>
+        <CommandText>SELECT a.b1_alt_id, b.first_issued_date, c.b1_checklist_comment last_annual_inspection FROM
+B1PERMIT a,
+BPERMIT_DETAIL b,
+BCHCKBOX c
+where
+a.b1_per_group = 'Enforcement' and
+a.b1_per_type = 'Stormwater' and
+a.b1_per_sub_type = 'SPAP' and
+a.b1_per_category = 'NA' and
+a.b1_appl_status = 'Active' and
+b.serv_prov_code = a.serv_prov_code and
+b.b1_per_id1 = a.b1_per_id1 and
+b.b1_per_id2 = a.b1_per_id2 and
+b.b1_per_id3 = a.b1_per_id3 and
+add_months(nvl(b.first_issued_date,to_date('01/01/1950','MM/DD/YYYY')),12) 
+&lt; to_date('01/01/' || to_char(to_number(to_char(sysdate,'YYYY')) + 1),'MM/DD/YYYY') and  
+c.serv_prov_code (+) = a.serv_prov_code and
+c.b1_per_id1 (+) = a.b1_per_id1 and
+c.b1_per_id2 (+) = a.b1_per_id2 and
+c.b1_per_id3 (+) = a.b1_per_id3 and
+c.b1_checkbox_desc (+) = 'Last Annual Inspection' and
+to_date(nvl(c.b1_checklist_comment (+),'01/01/1950'),'MM/DD/YYYY') &lt; add_months(sysdate,-3)</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="B1_ALT_ID">
+          <DataField>B1_ALT_ID</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FIRST_ISSUED_DATE">
+          <DataField>FIRST_ISSUED_DATE</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="LAST_ANNUAL_INSPECTION">
+          <DataField>LAST_ANNUAL_INSPECTION</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="setId">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>18-CAP-00009</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>set Id</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <Language>en-US</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>338beb71-0709-46fb-b975-278442787d84</rd:ReportID>
+</Report>

@@ -1,16 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
-  <am:AuthoringMetadata>
-    <am:CreatedBy>
-      <am:Name>SSDTRS</am:Name>
-      <am:Version>17.7.34009.444</am:Version>
-    </am:CreatedBy>
-    <am:UpdatedBy>
-      <am:Name>SSDTRS</am:Name>
-      <am:Version>17.7.34009.444</am:Version>
-    </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2024-04-18T17:55:22.6397293Z</am:LastModifiedTimestamp>
-  </am:AuthoringMetadata>
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily">
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -821,7 +810,7 @@ ORDER BY PermitType</CommandText>
                   <Width>1.26639in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.16223in</Width>
+                  <Width>0.93597in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.29764in</Width>
@@ -990,10 +979,11 @@ ORDER BY PermitType</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>DATE OPENED</Value>
+                                  <Value>OPEN DATE</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
+                                    <Format>yy/MM/dd</Format>
                                     <Color>White</Color>
                                   </Style>
                                 </TextRun>
@@ -1006,26 +996,6 @@ ORDER BY PermitType</CommandText>
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
                             <BackgroundColor>SlateBlue</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -1961,7 +1931,7 @@ ORDER BY PermitType</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!DATE_OPENED.Value</Value>
+                                  <Value>=FormatDateTime(Fields!DATE_OPENED.Value, DateFormat.ShortDate)</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                   </Style>
@@ -1975,27 +1945,7 @@ ORDER BY PermitType</CommandText>
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
-                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingLeft>4pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
@@ -2807,7 +2757,7 @@ ORDER BY PermitType</CommandText>
             <DataSetName>DataSet1</DataSetName>
             <Top>5in</Top>
             <Height>0.5in</Height>
-            <Width>21.49992in</Width>
+            <Width>21.27366in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2958,6 +2908,7 @@ ORDER BY PermitType</CommandText>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontWeight>Bold</FontWeight>
+                                    <Format>0.00;(0.00)</Format>
                                     <Color>White</Color>
                                   </Style>
                                 </TextRun>
@@ -2970,26 +2921,6 @@ ORDER BY PermitType</CommandText>
                             <Border>
                               <Style>Solid</Style>
                             </Border>
-                            <TopBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </TopBorder>
-                            <BottomBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </BottomBorder>
-                            <LeftBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </LeftBorder>
-                            <RightBorder>
-                              <Color>Black</Color>
-                              <Style>Solid</Style>
-                              <Width>1pt</Width>
-                            </RightBorder>
                             <BackgroundColor>SlateBlue</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
@@ -3231,7 +3162,7 @@ ORDER BY PermitType</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=AVG(Fields!VALUATION.Value)</Value>
+                                  <Value>=Format(AVG(Fields!VALUATION.Value),"F2")</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -3341,7 +3272,7 @@ ORDER BY PermitType</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=AVG(Fields!TOTAL_INVOICED.Value)</Value>
+                                  <Value>=Format(AVG(Fields!TOTAL_INVOICED.Value),"F2")</Value>
                                   <Style>
                                     <FontFamily>Calibri</FontFamily>
                                     <FontSize>9pt</FontSize>
@@ -3800,7 +3731,7 @@ ORDER BY PermitType</CommandText>
           </Border>
         </Style>
       </Body>
-      <Width>21.5in</Width>
+      <Width>21.70074in</Width>
       <Page>
         <PageHeight>8.5in</PageHeight>
         <PageWidth>22in</PageWidth>
@@ -3819,13 +3750,13 @@ ORDER BY PermitType</CommandText>
       <Prompt>RECORD ID</Prompt>
     </ReportParameter>
     <ReportParameter Name="OpenDateStart">
-      <DataType>String</DataType>
-      <AllowBlank>true</AllowBlank>
+      <DataType>DateTime</DataType>
+      <Nullable>true</Nullable>
       <Prompt>Open Date Start</Prompt>
     </ReportParameter>
     <ReportParameter Name="OpenDateEnd">
-      <DataType>String</DataType>
-      <AllowBlank>true</AllowBlank>
+      <DataType>DateTime</DataType>
+      <Nullable>true</Nullable>
       <Prompt>Open Date End</Prompt>
     </ReportParameter>
     <ReportParameter Name="ValuationStart">
@@ -3839,13 +3770,13 @@ ORDER BY PermitType</CommandText>
       <Prompt>Valuation End</Prompt>
     </ReportParameter>
     <ReportParameter Name="DateIssuedStart">
-      <DataType>String</DataType>
-      <AllowBlank>true</AllowBlank>
+      <DataType>DateTime</DataType>
+      <Nullable>true</Nullable>
       <Prompt>Date Issued Start</Prompt>
     </ReportParameter>
     <ReportParameter Name="DateIssuedEnd">
-      <DataType>String</DataType>
-      <AllowBlank>true</AllowBlank>
+      <DataType>DateTime</DataType>
+      <Nullable>true</Nullable>
       <Prompt>Date Issued End</Prompt>
     </ReportParameter>
     <ReportParameter Name="lpbusinessname">

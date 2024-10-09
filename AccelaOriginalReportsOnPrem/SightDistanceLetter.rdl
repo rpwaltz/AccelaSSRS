@@ -1,0 +1,382 @@
+‹¯¨<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Body>
+    <ReportItems>
+      <Textbox Name="Textbox2">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>="RESIDENT" &amp; vbcrlf &amp; First(Fields!STR_PREFIX.Value, "DataSet1")+ " " +First(Fields!STREET.Value, "DataSet1") &amp; vbcrlf &amp; First(Fields!B1_SITUS_CITY.Value, "DataSet1") + ", " +
+ First(Fields!B1_SITUS_STATE.Value, "DataSet1")+ " " +First(Fields!B1_SITUS_ZIP.Value, "DataSet1")</Value>
+                <Style>
+                  <FontFamily>Times New Roman</FontFamily>
+                  <FontSize>12pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox2</rd:DefaultName>
+        <Top>1.43625in</Top>
+        <Height>0.25in</Height>
+        <Width>2.85292in</Width>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox6">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>="Dear Resident at " &amp; First(Fields!STR_PREFIX.Value, "DataSet1") &amp; " " &amp; First(Fields!STREET.Value, "DataSet1") &amp; "," &amp; vbcrlf &amp;  vbcrlf &amp; 
+"Our department regularly receives comments regarding visibility obstructions existing at intersections in the City." &amp; vbcrlf &amp; vbcrlf &amp; 
+"Based on the Knoxville Zoning Ordinance Article V Section 6 and accepted traffic engineering guidelines, the vegetation on the " + Parameters!Corner.Value + " corner of " + Parameters!Street1.Value +" and " + Parameters!Street2.Value + " is preventing good visibility for that intersection." &amp; vbcrlf &amp; vbcrlf &amp; 
+"Because visibility obstructions can cause traffic safety problems, the Engineering Department requests that you remove the vegetation as specified on the enclosed diagrams by " &amp; format(DateAdd("d", 14, Globals!ExecutionTime), "MMMM dd, yyyy") &amp; "." &amp; vbcrlf &amp; vbcrlf &amp; 
+"In the interest of public safety, the Engineering Department is obligated to take further steps by turning this issue over to the cityƒ_Ts codes department if work is not completed by the given deadline." &amp; vbcrlf &amp; vbcrlf &amp; 
+"Your cooperation would be greatly appreciated.  If you have any questions, please contact me at 215-6110."&amp; vbcrlf &amp; vbcrlf &amp; vbcrlf &amp; 
+"Sincerely," &amp; vbcrlf &amp; vbcrlf &amp;  vbcrlf &amp; vbcrlf  &amp; vbcrlf &amp; 
+"Andy Hudson" &amp; vbcrlf &amp; 
+"Traffic Engineering Section"</Value>
+                <Style>
+                  <FontFamily>Times New Roman</FontFamily>
+                  <FontSize>12pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>1.82167in</Top>
+        <Height>0.25in</Height>
+        <Width>6.15625in</Width>
+        <ZIndex>1</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox7">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=Globals!ExecutionTime</Value>
+                <Style>
+                  <FontSize>12pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Format>MMMM dd, yyyy</Format>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox7</rd:DefaultName>
+        <Top>0.65847in</Top>
+        <Left>2.2175in</Left>
+        <Height>0.25in</Height>
+        <Width>2in</Width>
+        <ZIndex>2</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Subreport Name="SubAttachments">
+        <ReportName>subLTRAttachments</ReportName>
+        <Parameters>
+          <Parameter Name="WO_NUM">
+            <Value>=First(Fields!WO_NUM.Value, "DataSet1")</Value>
+          </Parameter>
+        </Parameters>
+        <Top>2.14111in</Top>
+        <Left>1.03472in</Left>
+        <Height>0.25in</Height>
+        <Width>5.12153in</Width>
+        <ZIndex>3</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
+      <Textbox Name="Textbox1">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Attachments:</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>2.14111in</Top>
+        <Left>0.01389in</Left>
+        <Height>0.25in</Height>
+        <Width>0.95139in</Width>
+        <ZIndex>4</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox681">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>PDF Attachments:</Value>
+                <Style>
+                  <FontSize>9pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox681</rd:DefaultName>
+        <Top>2.41889in</Top>
+        <Height>0.25in</Height>
+        <Width>1.1632in</Width>
+        <ZIndex>5</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Subreport Name="SubAttachPDF">
+        <ReportName>subLTRAttachmentPDF</ReportName>
+        <Parameters>
+          <Parameter Name="WO_NUM">
+            <Value>=First(Fields!WO_NUM.Value, "DataSet1")</Value>
+          </Parameter>
+        </Parameters>
+        <Top>2.41889in</Top>
+        <Left>1.20486in</Left>
+        <Height>0.25in</Height>
+        <Width>4.95139in</Width>
+        <ZIndex>6</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Subreport>
+      <Textbox Name="Textbox3">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>FINAL NOTICE</Value>
+                <Style>
+                  <FontSize>20pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                  <Color>=IIF (Parameters!FinalNotice.Value = "No", "White", "Red")</Color>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox3</rd:DefaultName>
+        <Top>0.2418in</Top>
+        <Left>0.92014in</Left>
+        <Height>0.375in</Height>
+        <Width>4.40153in</Width>
+        <ZIndex>7</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+    </ReportItems>
+    <Height>2.7175in</Height>
+    <Style />
+  </Body>
+  <Width>6.15625in</Width>
+  <Page>
+    <LeftMargin>0.9in</LeftMargin>
+    <RightMargin>1in</RightMargin>
+    <TopMargin>1in</TopMargin>
+    <BottomMargin>0.25in</BottomMargin>
+    <Style />
+  </Page>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="Accela">
+      <DataSourceReference>Accela</DataSourceReference>
+      <rd:SecurityType>DataBase</rd:SecurityType>
+      <rd:DataSourceID>0a6f5dc7-fb05-4120-81b9-bc78b3d70f19</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DataSet1">
+      <Query>
+        <DataSourceName>Accela</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name=":ID">
+            <Value>=Parameters!ID.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>SELECT     ACCELA.B1PERMIT.SERV_PROV_CODE, 
+to_char(ACCELA.B3ADDRES.B1_HSE_NBR_START) ||' ' ||
+TRIM(ACCELA.B3ADDRES.B1_STR_PREFIX ||' ' || ACCELA.B3ADDRES.B1_STR_DIR) as STR_PREFIX, 
+TRIM(ACCELA.B3ADDRES.B1_STR_NAME ||' ' || ACCELA.B3ADDRES.B1_STR_SUFFIX) as STREET, 
+ACCELA.B3ADDRES.B1_SITUS_CITY, ACCELA.B3ADDRES.B1_SITUS_STATE, ACCELA.B3ADDRES.B1_SITUS_ZIP,
+ACCELA.B1PERMIT.B1_ALT_ID as WO_NUM
+                       
+FROM         ACCELA.B1PERMIT, ACCELA.B3ADDRES
+WHERE     ACCELA.B1PERMIT.SERV_PROV_CODE = ACCELA.B3ADDRES.SERV_PROV_CODE AND ACCELA.B1PERMIT.B1_PER_ID1 = ACCELA.B3ADDRES.B1_PER_ID1 AND 
+                      ACCELA.B1PERMIT.B1_PER_ID2 = ACCELA.B3ADDRES.B1_PER_ID2 AND ACCELA.B1PERMIT.B1_PER_ID3 = ACCELA.B3ADDRES.B1_PER_ID3 
+                     AND 
+                      (ACCELA.B1PERMIT.B1_ALT_ID = TO_CHAR(:ID))</CommandText>
+        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+      </Query>
+      <Fields>
+        <Field Name="SERV_PROV_CODE">
+          <DataField>SERV_PROV_CODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STR_PREFIX">
+          <DataField>STR_PREFIX</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STREET">
+          <DataField>STREET</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="B1_SITUS_CITY">
+          <DataField>B1_SITUS_CITY</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="B1_SITUS_STATE">
+          <DataField>B1_SITUS_STATE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="B1_SITUS_ZIP">
+          <DataField>B1_SITUS_ZIP</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="WO_NUM">
+          <DataField>WO_NUM</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="ID">
+      <DataType>String</DataType>
+      <Prompt>ID</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Corner">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value xml:space="preserve"> </Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Enter Corner (NW, etc.)</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Street1">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value xml:space="preserve"> </Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Street1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Street2">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value xml:space="preserve"> </Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Street2</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FinalNotice">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>No</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Final Notice?</Prompt>
+      <ValidValues>
+        <ParameterValues>
+          <ParameterValue>
+            <Value>Yes</Value>
+            <Label>Yes</Label>
+          </ParameterValue>
+          <ParameterValue>
+            <Value>No</Value>
+            <Label>No</Label>
+          </ParameterValue>
+        </ParameterValues>
+      </ValidValues>
+    </ReportParameter>
+  </ReportParameters>
+  <Language>en-US</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>dae27cb6-9091-4ef8-91e3-f293e063bdb9</rd:ReportID>
+</Report>
